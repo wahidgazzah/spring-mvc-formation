@@ -67,6 +67,91 @@ img {
     float: left;
 }
 
+div#logo {
+	background-image:url(../images/team-logo.png) ; 
+   	background-repeat: no-repeat;
+    background-size: 150px 33px;
+    height: 12%;
+    position: absolute;
+    width: 16%;
+	margin: 30px;
+}
+div#home-title {
+    font-size: 1.5em;
+    margin: 25px 0 0 440px;
+}
+
+
+
+
+#main-message{
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 1) inset, 0 -1px 2px rgba(0, 0, 0, 0.25) inset;
+	-moz-border-radius:12px;
+	-khtml-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius:5px;
+	margin: 0 0 15px;
+}
+
+
+
+
+
+
+
+
+
+
+#message
+{
+	color: #00529B;
+	padding: 10px;
+	font-weight: bold;
+	border-radius:5px;
+}
+
+#info
+{
+	color: #00529B;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0px, #BDE5F8 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	padding: 10px;
+	font-weight: bold;
+	border-radius:5px;
+}
+#success
+{
+	color: #4F8A10;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0px, #DFF2BF 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	padding: 10px;
+	font-weight: bold;
+	border-radius:5px;
+}
+#warning
+{
+	color: #9F6000;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0px, #FEEFB3 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	padding: 10px;
+	font-weight: bold;
+	border-radius:5px;
+}
+#error
+{
+	color: #D8000C;
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0px, #FFBABA 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+	padding: 10px;
+	font-weight: bold;
+	border-radius:5px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .container {
 	background-color: #ffffff;
@@ -111,7 +196,7 @@ img {
 .main{
 	margin-right: 0;
 	float: left;
-	width: 750px;
+	width: 740px;
 	margin: 0;
     padding: 0;
 }
@@ -123,8 +208,7 @@ img {
     margin: 1em 2em 1.5em;
 }
 .footer{
-	 text-align: center;
-	 margin: -20px 0 10px;
+	 margin: -22px 50px 10px;
 }
 
 .header{
@@ -244,6 +328,27 @@ h3{
 	 text-align: center;
 }
 
+.about-title{
+	 text-align: center;
+}
+
+.about-title h3{
+	 color: #b36306 !important;
+}
+
+
+.error-title{
+	text-align: center;
+}
+
+.error-title h3{
+	color: #CC0000 !important;
+}
+
+.error-message h3{
+	text-align: center;
+	
+}
 
 .error {
 	margin: 0.25em 0 1em;

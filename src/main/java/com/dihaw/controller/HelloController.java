@@ -14,6 +14,7 @@ public class HelloController {
 	
 	private static int counter = 0;
 	private static String INDEX_VIEW = "view/index";
+	private static String ABOUT_VIEW = "index";
 	private static String MESSAGE = "message";
 	private static String COUNTER = "counter";
 	
@@ -41,4 +42,9 @@ public class HelloController {
  
 	}
 
+	@RequestMapping(value = "/about", method = RequestMethod.GET)
+	public String showAboutView() {
+ 
+		return ABOUT_VIEW;
+	}
 }

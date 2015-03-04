@@ -1,8 +1,8 @@
 function switchDetails(userId){
-	document.getElementById("deleteAction").setAttribute("href", "../../delete?id=" + userId);
-	document.getElementById("device-details").style.display = "block";
+	document.getElementById("deleteAction").setAttribute("href", "delete?id=" + userId);
+	document.getElementById("dialog-container").style.display = "block";
 }
 
 function closeDetails(){
-	document.getElementById("device-details").style.display = "none";
+	document.getElementById("dialog-container").style.display = "none";
 }

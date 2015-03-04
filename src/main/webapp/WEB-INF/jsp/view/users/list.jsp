@@ -55,17 +55,13 @@
 	
 		</div>
 		
-		<div id="device-details" style="display:none">
-			<div id="container-details">
-				<div id="dialog">
-					<div id="openDialog${user.userId}" class="details">
-						<div class="details-container">
-							<h3><spring:message code="question" /></h3>
-							<div style=" margin: 20px 0 15px;">
-								<a id="deleteAction" href="delete?id=" class="btn"><spring:message code="yes" /></a>
-								<a href="#" class="btn" onclick="closeDetails()"><spring:message code="cancel" /></a>
-							</div>
-						</div>
+		<div id="dialog-container" style="display:none">
+			<div class="details">
+				<div class="details-container" >
+					<h3><spring:message code="question" /></h3>
+					<div style=" margin: 20px 0 15px;">
+						<a id="deleteAction" href="delete?id=" class="btn"><spring:message code="yes" /></a>
+						<a href="#" class="btn" onclick="closeDetails()"><spring:message code="cancel" /></a>
 					</div>
 				</div>
 			</div>

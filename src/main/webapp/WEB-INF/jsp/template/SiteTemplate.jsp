@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-	
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
 	<head>
-		<title>dihaw - Spring MVC JDBC</title>
+		<title><spring:message code="application.title" /></title>
 		
 		<link href="<c:url value="/static/css/style.css" />" rel="stylesheet"> </link> 
 		<script type="text/javascript" src="<c:url value="/static/js/script.js" />"></script>

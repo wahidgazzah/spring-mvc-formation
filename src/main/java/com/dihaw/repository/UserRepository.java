@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.dihaw.entity.User;
 
 @Repository
-public interface UsersRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u from User u")
     Page<User> findAllUsers(Pageable pageable);

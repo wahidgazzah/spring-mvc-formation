@@ -19,15 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.dihaw.controller.exception.UserNotFoundException;
+import com.dihaw.dto.ResponseDTO;
+import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
 import com.dihaw.services.CityService;
-import com.dihaw.services.UsersService;
+import com.dihaw.services.UserService;
 import com.dihaw.validators.ValidatorUserEntry;
 
 @Controller
 @RequestMapping("/users")
-public class UsersController {
+public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public static final String USER_FORM_ATTRIBUTE = "user";
@@ -35,17 +38,19 @@ public class UsersController {
 	public static final String CITY_MODEL_ATTRIBUTE = "cityList";
 	public static final String GENDER_MODEL_ATTRIBUTE = "genderList";
 	
-	public static final String MAP = "map";
+	private static String ERROR_MESSAGE = "errorMessage";
+	private static String RESPONSE_STATUS = "status";
 	
 	private static String ADD_VIEW 	= "view/users/add";
 	private static String LIST_VIEW = "view/users/list";
 	private static String EDIT_VIEW = "view/users/edit";
+	private static String ERROR_VIEW= "error";
 	
 	@Autowired
 	private ValidatorUserEntry validatorUserEntry;
 
 	@Autowired
-	UsersService userService;
+	UserService userService;
 	
 	@Autowired
 	CityService cityService;
@@ -76,7 +81,7 @@ public class UsersController {
 	            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
 	            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
 		
-		logger.info("Showing Users view");
+		logger.info("----------> Showing Users view");
 		
 		PageRequest pageRequest = new PageRequest(page, size, Direction.ASC, "id");
 		
@@ -91,7 +96,7 @@ public class UsersController {
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, BindingResult bindingResult) {
 		
-		logger.info("Showing add user view");
+		logger.info("----------> Showing add user view");
 		
 		Errors errors = (Errors) modelMap.get("addErrors");
 		
@@ -122,14 +127,24 @@ public class UsersController {
 			
 			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
 			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
-			
-			return ADD_VIEW;
 		}
 		
 		else{
-//			userService.registerUser(user);
-			return "redirect:/users";
+			ResponseDTO response = userService.registerUser(user);
+			
+			model.addAttribute(RESPONSE_STATUS, response.getStatus().value());
+			
+			if(response.getStatus().value().equals(ResponseStatusType.SUCCESS.value())){
+				
+				logger.info("----------> SUCCESS");
+				
+				model.addAttribute(USER_FORM_ATTRIBUTE, new User());
+				
+			}
+
 		}
+		
+		return ADD_VIEW;
 	}
 
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
@@ -138,9 +153,9 @@ public class UsersController {
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@RequestParam String id,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
-			BindingResult bindingResult) {
+			BindingResult bindingResult) throws UserNotFoundException{
 		
-		logger.info("Showing edit user view");
+		logger.info("----------> Showing edit user view");
 		
 		Errors errors = (Errors) modelMap.get("editErrors");
 		
@@ -148,7 +163,14 @@ public class UsersController {
 			bindingResult.addAllErrors(errors);
 		}
 		
-		user = userService.getUserById(Integer.parseInt(id));
+		try{
+			user = userService.getUserById(id);
+		}catch(UserNotFoundException e){
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
 		
 		model.addAttribute(USER_FORM_ATTRIBUTE, user);
 		model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
@@ -163,9 +185,9 @@ public class UsersController {
 			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
-			BindingResult bindingResult ) {
+			BindingResult bindingResult ) throws UserNotFoundException{
 		
-		logger.info("RequestMapping: /do-edit");
+		logger.info("----------> RequestMapping: /do-edit");
 		
 		if (bindingResult.hasErrors()) {
 			
@@ -179,19 +201,26 @@ public class UsersController {
 		}
 		else{
 			
-			userService.updateData(user);
+			userService.updateUser(user);
 			return "redirect:/users/list";
 		}
 		
 	}
 
 	@RequestMapping("/delete")
-	public String deleteUser(@RequestParam String id) {
+	public String deleteUser(Model model, @RequestParam String id) {
 		
-		logger.info("RequestMapping: /delete");
+		logger.info("----------> RequestMapping: /delete");
 		
-//		userService.deleteData(id);
+		try {
+			userService.deleteUser(id);
+		} catch (UserNotFoundException e) {
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
 		
-		return "redirect:/users";
+		return "redirect:/users/list";
 	}
 }
