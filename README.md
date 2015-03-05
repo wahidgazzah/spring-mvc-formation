@@ -5,7 +5,7 @@ Technology used:
 
 	* Spring MVC
 	* Maven
-	* JPA
+	* JPA: Java Persistence API
 	* Spring DATA: used for the list pagination ( size, page, oderBy)
 	* Tiles: in order to create the template (header, body, menu, footer)
 	* Ehcache: in order to optimize the database access and the cache of the application

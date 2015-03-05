@@ -12,18 +12,23 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dihaw.controller.exception.UserNotFoundException;
 import com.dihaw.dto.ResponseDTO;
 import com.dihaw.dto.ResponseStatusType;
+import com.dihaw.entity.City;
+import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
+import com.dihaw.repository.CityRepository;
 import com.dihaw.repository.UserRepository;
 import com.dihaw.services.UserService;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS)
 public class UserServiceImpl implements UserService {
-	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	UserRepository repository;
+	
+	@Autowired
+	CityRepository cityRepository;
 
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Page<User> users(Pageable pageable){
@@ -49,23 +54,20 @@ public class UserServiceImpl implements UserService {
 		if(userSearch == null)
 			throw new UserNotFoundException(String.format("No user found for id "+user.getUserId()));
 		
-		logger.info("-0---------> updateUser");
+		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		logger.info("-1---------> updateUser: "+user.getUserId());
-		logger.info("-2---------> updateUser: "+user.getFirstName());
-		logger.info("-3---------> updateUser: "+user.getLastName());
-		logger.info("-4---------> updateUser: "+user.getGender().value());
-		logger.info("-5---------> updateUser: "+user.getCity().getCityName());
-		
-		
-		repository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), user.getGender().value(), user.getCity().getCityName());
+		repository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city);
 		
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public ResponseDTO registerUser(User user){
 		
-		User userToAdd = repository.save(user);
+		City city = cityRepository.findByCityName(user.getCity().getCityName());
+		
+		User u = new User(user.getFirstName(), user.getLastName(), city, Gender.fromValue(user.getGender().value()));
+		
+		User userToAdd = repository.save(u);
 		
 		ResponseDTO response = new ResponseDTO();
 		

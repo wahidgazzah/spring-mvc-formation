@@ -4,7 +4,7 @@
 
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
-		<div style="margin:30px 10px 0;">
+		<div class="about">
 			<div class="about-title">
 				<h3>About this project</h3>
 			</div>
@@ -17,13 +17,13 @@
 				<h3>Technology used</h3>
 			</div>
 			<ul>
-				<li><strong style="color: #f78b0e">Spring MVC</strong></li>
-				<li><strong style="color: #f78b0e">Maven</strong></li>
-				<li><strong style="color: #f78b0e">JPA</strong></li>
-				<li><strong style="color: #f78b0e">Spring Data</strong>: used for the list pagination ( size, page, oderBy)</li>
-				<li><strong style="color: #f78b0e">Tiles</strong>: in order to create the template (header, body, menu, footer)</li>
-				<li><strong style="color: #f78b0e">Ehcache</strong>: in order to optimize the database access and the cache of the application</li>
-				<li><strong style="color: #f78b0e">logback</strong>: <a href="http://logback.qos.ch/" target="_blank">Logback</a> is intended as a successor to the popular log4j project, <a href="http://logback.qos.ch/reasonsToSwitch.html" target="_blank">picking up where log4j leaves off</a></li>
+				<li><strong>Spring MVC</strong></li>
+				<li><strong>Maven</strong></li>
+				<li><strong>JPA</strong>: Java Persistence API</li>
+				<li><strong>Spring Data</strong>: used for the list pagination ( size, page, oderBy)</li>
+				<li><strong>Tiles</strong>: in order to create the template (header, body, menu, footer)</li>
+				<li><strong>Ehcache</strong>: in order to optimize the database access and the cache of the application</li>
+				<li><strong>logback</strong>: <a href="http://logback.qos.ch/" target="_blank">Logback</a> is intended as a successor to the popular log4j project, <a href="http://logback.qos.ch/reasonsToSwitch.html" target="_blank">picking up where log4j leaves off</a></li>
 			</ul>
 			</br></br> 
 			<div class="about-title">

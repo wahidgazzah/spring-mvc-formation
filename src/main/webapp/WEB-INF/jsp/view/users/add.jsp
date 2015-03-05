@@ -48,10 +48,18 @@
 								<div class="radio"> 
 									<form:radiobuttons path="gender" items="${genderList}" />
 								</div>
+								<form:errors path="gender" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label> 
-								<form:select path="city" items="${cityList}" />
+								<spring:bind path="city">
+									<select name="city">
+										<c:forEach items='${cityList}' var='city'>
+											<option value="${city.cityName}">${city.cityName}</option>
+										</c:forEach>
+									</select>
+								</spring:bind>
+								<form:errors path="city" element="label" cssClass="error"/>
 							</li>
 						</ul>
 					</div>

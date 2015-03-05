@@ -328,6 +328,19 @@ h3{
 	 text-align: center;
 }
 
+.about{
+	 margin:30px 10px 0;
+}
+
+.about ul li strong{
+	 color: #b36306;
+}
+
+.about ul li em {
+    font-style: italic;
+    color: #0066b3;
+}
+
 .about-title{
 	 text-align: center;
 }

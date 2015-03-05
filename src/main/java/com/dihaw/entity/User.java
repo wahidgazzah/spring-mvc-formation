@@ -1,5 +1,6 @@
 package com.dihaw.entity;
 
+import javax.annotation.Nonnull;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,7 +23,6 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "USER_ID")
-	@NotBlank
 	private int userId;
 
 	@Column(name = "FIRST_NAME")
@@ -36,7 +37,6 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "GENDER")
-    @NotBlank
     private Gender gender;
     
     @ManyToOne(optional = true)

@@ -23,6 +23,8 @@ public class ValidatorUserEntry implements Validator {
 		
 		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "validation.not.null");
 		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "validation.not.null");
+		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "gender", "validation.not.null");
+		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "city", "validation.not.null");
 		
 		if (!errors.hasFieldErrors("firstName") && target.getFirstName() != null) {
 			

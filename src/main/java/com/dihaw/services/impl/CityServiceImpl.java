@@ -1,6 +1,5 @@
 package com.dihaw.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +18,9 @@ public class CityServiceImpl implements CityService {
 	@Autowired
 	CityRepository cityRepository;
 	
-	public List<String> getAllCityName() {
-		 
-		 List<String> list = new ArrayList<String>(); 
-		
-		 for(City city : cityRepository.findAllCity()){
-			 list.add(city.getCityName());
-		 }
-		 
-		 return list;
-		 
-		}
+	public List<City> getAll() {
+		return cityRepository.findAll();
+	}
 
 
 }

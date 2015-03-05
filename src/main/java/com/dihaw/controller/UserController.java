@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.dihaw.controller.exception.UserNotFoundException;
 import com.dihaw.dto.ResponseDTO;
 import com.dihaw.dto.ResponseStatusType;
+import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
 import com.dihaw.services.CityService;
@@ -71,10 +71,11 @@ public class UserController {
 	}
 	
 	@ModelAttribute(CITY_MODEL_ATTRIBUTE)
-	public List<String> CityModelAttribute() {
+	public List<City> CityModelAttribute() {
 		
-		return cityService.getAllCityName();
+		return cityService.getAll();
 	}
+	
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	  public String showUsers(Model model,
@@ -116,9 +117,12 @@ public class UserController {
 	public String addUser(Model model,
 			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
-			@Validated @ModelAttribute(USER_FORM_ATTRIBUTE) User user, 
+			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, 
 			BindingResult bindingResult ) {
 		
+		
+
+
 		validatorUserEntry.validate(user, bindingResult);
 		
 		if (bindingResult.hasErrors()) {
@@ -150,7 +154,8 @@ public class UserController {
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
 	public String editUser(Model model, ModelMap modelMap,
 			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
-			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
+//			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
+			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<City> cityList,
 			@RequestParam String id,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
 			BindingResult bindingResult) throws UserNotFoundException{

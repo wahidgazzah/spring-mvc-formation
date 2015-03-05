@@ -42,13 +42,13 @@
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label>
 								<spring:bind path="city">
 									<select name="city">
-										<c:forEach items='${cityList}' var='cityName'>
+										<c:forEach items='${cityList}' var='city'>
 											<c:choose>
-												<c:when test="${cityName eq user.city.cityName}">
-													<option value="${cityName}" selected="true">${cityName}</option>
+												<c:when test="${city.cityName eq user.city.cityName}">
+													<option value="${city.cityName}" selected="true">${city.cityName}</option>
 												</c:when>
 												<c:otherwise>
-													<option value="${cityName}">${cityName}</option>
+													<option value="${city.cityName}">${city.cityName}</option>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>

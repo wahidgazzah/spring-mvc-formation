@@ -12,5 +12,4 @@ public enum Gender {
     public static Gender fromValue(String v) {
         return valueOf(v);
     }
-
 }
