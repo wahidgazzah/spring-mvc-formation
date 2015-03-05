@@ -44,7 +44,7 @@
 				<li>After import, click the right mouse button on your project, Configure -> Convert to Maven Project.</li>
 				<li>To run the project, use "clean compile install" cmd.</li>
 				<li>Go to http://localhost:port/spring-mvc-formation/</li>
-				<li>The <strong>log</strong> will be created on the <em>C:/wahidgazzah/logs/spring-mvc-formation/application.log</em> file (see the <strong>logback.xml</strong> file)</li>
+				<li>The <strong>log</strong> will be created on the <em>C:/dihaw/logs/spring-mvc-formation/SystemOut.log</em> file (see the <strong>logback.xml</strong> file)</li>
 			</ul>
 			</br></br>  
 		</div>

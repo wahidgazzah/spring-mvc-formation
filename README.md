@@ -24,7 +24,7 @@ Import the Git project using STS IDE
     * After import, click the right mouse button on your project, Configure -> Convert to Maven Project.
     * To run the project, use "clean compile install" cmd.
     * Go to http://localhost:port/spring-mvc-formation/
-    * The log will be setted on the C:\wahidgazzah\logs\spring-mvc-formation\application.log file (see the logback.xml file)
+    * The log will be setted on the C:\dihaw\logs\spring-mvc-formation\SystemOut.log file (see the logback.xml file)
 
 
 Developed by Wahid Gazzah
