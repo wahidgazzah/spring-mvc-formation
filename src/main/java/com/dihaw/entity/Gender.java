@@ -2,16 +2,15 @@ package com.dihaw.entity;
 
 public enum Gender {
 
-	M("Male"), F("Female");
+	Male,
+	Female;
+	
+    public String value() {
+        return name();
+    }
 
-	private String abreviation;
-
-	public String getAbreviation() {
-		return abreviation;
-	}
-
-	private Gender(String abreviation) {
-		this.abreviation = abreviation;
-	}
+    public static Gender fromValue(String v) {
+        return valueOf(v);
+    }
 
 }

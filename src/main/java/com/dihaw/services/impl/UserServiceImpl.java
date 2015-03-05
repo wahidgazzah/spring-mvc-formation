@@ -49,7 +49,16 @@ public class UserServiceImpl implements UserService {
 		if(userSearch == null)
 			throw new UserNotFoundException(String.format("No user found for id "+user.getUserId()));
 		
-		repository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), user.getGender(), user.getCity());
+		logger.info("-0---------> updateUser");
+		
+		logger.info("-1---------> updateUser: "+user.getUserId());
+		logger.info("-2---------> updateUser: "+user.getFirstName());
+		logger.info("-3---------> updateUser: "+user.getLastName());
+		logger.info("-4---------> updateUser: "+user.getGender().value());
+		logger.info("-5---------> updateUser: "+user.getCity().getCityName());
+		
+		
+		repository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), user.getGender().value(), user.getCity().getCityName());
 		
 	}
 	

@@ -2,10 +2,17 @@ package com.dihaw.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "USER")
@@ -13,20 +20,28 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "USER_ID", nullable = false)
+	@Column(name = "USER_ID")
+	@NotBlank
 	private int userId;
 
-	@Column(name = "FIRST_NAME", nullable = false)
+	@Column(name = "FIRST_NAME")
+	@NotBlank
+	@Size(min = 3, max = 10)
 	private String firstName;
 
-	@Column(name = "LAST_NAME", nullable = false)
+	@Column(name = "LAST_NAME")
+	@NotBlank
+	@Size(min = 3, max = 10)
 	private String lastName;
 
-	@Column(name = "GENDER", nullable = false)
-	private String gender;
-
-	@Column(name = "CITY", nullable = false)
-	private String city;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "GENDER")
+    @NotBlank
+    private Gender gender;
+    
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "CITY_ID")
+	private City city;
 	
     /**
      * Protected constructor for ORM.
@@ -34,7 +49,7 @@ public class User {
 	public User() {
     }
     
-    public User(String firstName, String lastName, String city, String gender){
+    public User(String firstName, String lastName, City city, Gender gender){
     	this.firstName=firstName;
     	this.lastName=lastName;
     	this.city=city;
@@ -65,19 +80,21 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
-	public String getCity() {
+	public City getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(City city) {
 		this.city = city;
 	}
+
+
 }

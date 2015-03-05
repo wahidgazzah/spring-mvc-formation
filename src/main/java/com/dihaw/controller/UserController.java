@@ -64,8 +64,8 @@ public class UserController {
 	public List<String> GenderModelAttribute() {
 		
 		List<String> genderList = new ArrayList<String>();
-		genderList.add(Gender.F.getAbreviation());
-		genderList.add(Gender.M.getAbreviation());
+		genderList.add(Gender.Female.name());
+		genderList.add(Gender.Male.name());
 
 		return genderList;
 	}
@@ -195,7 +195,7 @@ public class UserController {
 			
 			model.addAttribute(USER_FORM_ATTRIBUTE, user);
 			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
-			model.addAttribute(CITY_MODEL_ATTRIBUTE, genderList);
+			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 			
 			return EDIT_VIEW;
 		}

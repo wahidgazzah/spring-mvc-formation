@@ -44,7 +44,7 @@
 									<select name="city">
 										<c:forEach items='${cityList}' var='cityName'>
 											<c:choose>
-												<c:when test="${cityName eq user.city}">
+												<c:when test="${cityName eq user.city.cityName}">
 													<option value="${cityName}" selected="true">${cityName}</option>
 												</c:when>
 												<c:otherwise>

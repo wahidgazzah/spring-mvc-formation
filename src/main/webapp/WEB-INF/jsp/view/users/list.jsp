@@ -42,7 +42,7 @@
 						<td>${user.firstName}</td>
 						<td>${user.lastName}</td>
 						<td>${user.gender}</td>
-						<td>${user.city}</td>
+						<td>${user.city.cityName}</td>
 						<td class="edit"><a href="edit?id=${user.userId}"><spring:message code="edit" /></a></td>
 						<td class="delete"><a href="#delete" class="sets" onclick="switchDetails(${user.userId})"><spring:message code="delete" /></a></td>
 					</tr>
