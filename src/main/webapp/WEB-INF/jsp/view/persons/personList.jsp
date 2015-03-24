@@ -5,7 +5,7 @@
 
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
-		<div style="margin: 30px 10px 0;">
+		<div style="padding: 60px 10px 0;">
 			<div class="title">
 				<h3>List of Persons</h3>
 			</div>

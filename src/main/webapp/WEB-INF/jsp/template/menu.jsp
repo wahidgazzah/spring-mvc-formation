@@ -6,9 +6,13 @@
 <spring:url value="/about" var="aboutUrl" />
 <spring:url value="/persons/list" var="personListUrl"  />
 <spring:url value="/users/list" var="userListUrl"  />
+
+<%-- >c:set var="RacinePath" value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/ --%>
  
 <div class="menu">
 	<ul>
+		
+			
 		<li ${fn:contains(pageContext.request.requestURI, 'jsp/index') ? 'class="selected"' : ''}>
 			<a href="${aboutUrl}"><spring:message code="menu.about" /></a>
 		</li>

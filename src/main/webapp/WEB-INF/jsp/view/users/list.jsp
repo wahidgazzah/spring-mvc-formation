@@ -5,7 +5,7 @@
 
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
-	    <div style="margin: 30px 10px 0;">
+	    <div style="padding: 60px 10px 0;">
 			<div class="title">
 				<h3><spring:message code="user.list" /></h3>
 			</div>
@@ -36,7 +36,7 @@
 					<th><spring:message code="edit" /></th>
 					<th><spring:message code="delete" /></th>
 				</tr>
-				<c:forEach var="user" items="${result.content}">
+				<c:forEach var="user" items="${result.content}" >
 					<tr>
 						<td>${user.userId}</td>
 						<td>${user.firstName}</td>
@@ -44,7 +44,9 @@
 						<td>${user.gender}</td>
 						<td>${user.city.cityName}</td>
 						<td class="edit"><a href="edit?id=${user.userId}"><spring:message code="edit" /></a></td>
-						<td class="delete"><a href="#delete" class="sets" onclick="switchDetails(${user.userId})"><spring:message code="delete" /></a></td>
+						<td class="delete">
+							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.userId})"><spring:message code="delete" /></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -59,6 +61,7 @@
 			<div class="details">
 				<div class="details-container" >
 					<h3><spring:message code="question" /></h3>
+					
 					<div style=" margin: 20px 0 15px;">
 						<a id="deleteAction" href="delete?id=" class="btn"><spring:message code="yes" /></a>
 						<a href="#" class="btn" onclick="closeDetails()"><spring:message code="cancel" /></a>

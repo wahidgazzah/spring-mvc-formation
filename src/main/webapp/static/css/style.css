@@ -170,7 +170,7 @@ div#home-title {
     margin-right: 5px;
     padding-right: 4px;
     float: left;
-     width: 190px;
+	width: 190px;
 }
 
 .menu ul{
@@ -187,12 +187,19 @@ div#home-title {
 }
 
 .menu ul li.selected{
-	background-color: #ccc;
+	background-color: #ccc ;
 }
 
 .menu ul li a{
 	color: #0066b3;
+	padding: 5px 70px;
 }
+
+.menu ul li.selected a{
+	color: #000;
+}
+
+
 
 .menu ul li:hover{
 	background-color: #cccccc;
@@ -346,7 +353,7 @@ h3{
 }
 
 .about{
-	 margin:30px 10px 0;
+	 padding:60px 25px 0;
 }
 
 .about ul li strong{

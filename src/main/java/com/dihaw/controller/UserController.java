@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.dihaw.controller.exception.UserNotFoundException;
 import com.dihaw.dto.ResponseDTO;
@@ -178,9 +177,6 @@ public class UserController {
 		Errors errors = (Errors) modelMap.get("editErrors");
 		
 		if (errors != null) {
-			
-			logger.info("---------- editErrors != null");
-			
 			bindingResult.addAllErrors(errors);
 		}
 		
@@ -203,8 +199,6 @@ public class UserController {
 
 	@RequestMapping(value="/do-edit", method = RequestMethod.POST)
 	public String updateUser(Model model,
-//			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
-//			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
 			BindingResult bindingResult ) throws UserNotFoundException{
 		
@@ -215,8 +209,6 @@ public class UserController {
 			model.addAttribute("editErrors", bindingResult);
 			
 			model.addAttribute(USER_FORM_ATTRIBUTE, user);
-//			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
-//			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 			
 			return EDIT_VIEW;
 		}
@@ -224,11 +216,11 @@ public class UserController {
 			
 			userService.updateUser(user);
 			
-//			return "redirect:/users/list";
-			
 			StringBuilder redirectPath = new StringBuilder();
 			redirectPath.append("redirect:" + CONTROLLER_BASE_PATH + SELECT_USERS_SUB_PATH );
 			return redirectPath.toString();
+			
+//			return "redirect:/users/list";
 			
 		}
 		
