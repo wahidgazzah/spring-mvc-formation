@@ -1,6 +1,5 @@
 package com.dihaw.dto;
 
-
 public class ResponseDTO {
 	
 	protected ResponseStatusType status;

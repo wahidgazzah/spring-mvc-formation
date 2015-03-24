@@ -13,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.dihaw.controller.exception.UserNotFoundException;
 import com.dihaw.dto.ResponseDTO;
@@ -24,14 +26,18 @@ import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
+import com.dihaw.exception.CustomGenericException;
 import com.dihaw.services.CityService;
 import com.dihaw.services.UserService;
 import com.dihaw.validators.ValidatorUserEntry;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping(UserController.CONTROLLER_BASE_PATH)
 public class UserController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	public final static String CONTROLLER_BASE_PATH = "/users";
+	public final static String SELECT_USERS_SUB_PATH = "/list";
 	
 	public static final String USER_FORM_ATTRIBUTE = "user";
 	public static final String RESULT_ATTRIBUTE = "result";
@@ -44,7 +50,7 @@ public class UserController {
 	private static String ADD_VIEW 	= "view/users/add";
 	private static String LIST_VIEW = "view/users/list";
 	private static String EDIT_VIEW = "view/users/edit";
-	private static String ERROR_VIEW= "error";
+	private static String ERROR_VIEW= "error/generic_error";
 	
 	@Autowired
 	private ValidatorUserEntry validatorUserEntry;
@@ -64,8 +70,8 @@ public class UserController {
 	public List<String> GenderModelAttribute() {
 		
 		List<String> genderList = new ArrayList<String>();
-		genderList.add(Gender.Female.name());
-		genderList.add(Gender.Male.name());
+		genderList.add(Gender.Female.value());
+		genderList.add(Gender.Male.value());
 
 		return genderList;
 	}
@@ -76,17 +82,25 @@ public class UserController {
 		return cityService.getAll();
 	}
 	
+	@ExceptionHandler(CustomGenericException.class)
+	public String handleGenericException(Model model, CustomGenericException exception) {
+		
+		model.addAttribute(ERROR_MESSAGE, exception);
+		model.addAttribute("backUrl", CONTROLLER_BASE_PATH + SELECT_USERS_SUB_PATH);
+		
+		return ERROR_VIEW;
+	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	  public String showUsers(Model model,
 	            @RequestParam(value = "page", required = false, defaultValue = "0") int page,
 	            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
 		
-		logger.info("----------> Showing Users view");
+		logger.info("---------- Showing Users view");
 		
-		PageRequest pageRequest = new PageRequest(page, size, Direction.ASC, "id");
+		PageRequest pageable = new PageRequest(page, size, Direction.ASC, "id");
 		
-	    model.addAttribute(RESULT_ATTRIBUTE, userService.users(pageRequest));
+	    model.addAttribute(RESULT_ATTRIBUTE, userService.users(pageable));
 	    
 	    return LIST_VIEW;
 	  }
@@ -97,11 +111,14 @@ public class UserController {
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, BindingResult bindingResult) {
 		
-		logger.info("----------> Showing add user view");
+		logger.info("---------- Showing add user view");
 		
 		Errors errors = (Errors) modelMap.get("addErrors");
 		
 		if (errors != null) {
+			
+			logger.info("---------- addErrors != null");
+			
 			bindingResult.addAllErrors(errors);
 		}
 
@@ -120,9 +137,6 @@ public class UserController {
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, 
 			BindingResult bindingResult ) {
 		
-		
-
-
 		validatorUserEntry.validate(user, bindingResult);
 		
 		if (bindingResult.hasErrors()) {
@@ -140,7 +154,7 @@ public class UserController {
 			
 			if(response.getStatus().value().equals(ResponseStatusType.SUCCESS.value())){
 				
-				logger.info("----------> SUCCESS");
+				logger.info("---------- SUCCESS");
 				
 				model.addAttribute(USER_FORM_ATTRIBUTE, new User());
 				
@@ -154,17 +168,19 @@ public class UserController {
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
 	public String editUser(Model model, ModelMap modelMap,
 			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
-//			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<City> cityList,
 			@RequestParam String id,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
 			BindingResult bindingResult) throws UserNotFoundException{
 		
-		logger.info("----------> Showing edit user view");
+		logger.info("---------- Showing edit user view");
 		
 		Errors errors = (Errors) modelMap.get("editErrors");
 		
 		if (errors != null) {
+			
+			logger.info("---------- editErrors != null");
+			
 			bindingResult.addAllErrors(errors);
 		}
 		
@@ -187,27 +203,33 @@ public class UserController {
 
 	@RequestMapping(value="/do-edit", method = RequestMethod.POST)
 	public String updateUser(Model model,
-			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
-			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
+//			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
+//			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
 			BindingResult bindingResult ) throws UserNotFoundException{
 		
-		logger.info("----------> RequestMapping: /do-edit");
+		logger.info("---------- RequestMapping: /do-edit");
 		
 		if (bindingResult.hasErrors()) {
 			
 			model.addAttribute("editErrors", bindingResult);
 			
 			model.addAttribute(USER_FORM_ATTRIBUTE, user);
-			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
-			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
+//			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
+//			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 			
 			return EDIT_VIEW;
 		}
 		else{
 			
 			userService.updateUser(user);
-			return "redirect:/users/list";
+			
+//			return "redirect:/users/list";
+			
+			StringBuilder redirectPath = new StringBuilder();
+			redirectPath.append("redirect:" + CONTROLLER_BASE_PATH + SELECT_USERS_SUB_PATH );
+			return redirectPath.toString();
+			
 		}
 		
 	}
@@ -215,7 +237,7 @@ public class UserController {
 	@RequestMapping("/delete")
 	public String deleteUser(Model model, @RequestParam String id) {
 		
-		logger.info("----------> RequestMapping: /delete");
+		logger.info("---------- RequestMapping: /delete");
 		
 		try {
 			userService.deleteUser(id);

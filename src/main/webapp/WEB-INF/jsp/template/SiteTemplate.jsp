@@ -6,7 +6,8 @@
 	<head>
 		<title><spring:message code="application.title" /></title>
 		
-		<link href="<c:url value="/static/css/style.css" />" rel="stylesheet"> </link> 
+		<link href="<c:url value="/static/css/style.css" />" rel="stylesheet" />
+		<link type="image/gif" href="<c:url value="/static/images/favicon.png" />" rel="icon">
 		<script type="text/javascript" src="<c:url value="/static/js/script.js" />"></script>
 	</head>
 	<body>

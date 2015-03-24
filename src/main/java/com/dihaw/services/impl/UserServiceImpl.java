@@ -25,20 +25,21 @@ public class UserServiceImpl implements UserService {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	UserRepository repository;
+	UserRepository userRepository;
 	
 	@Autowired
 	CityRepository cityRepository;
-
+	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Page<User> users(Pageable pageable){
-		return repository.findAllUsers(pageable);
+		
+		return userRepository.findAllUsers(pageable);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public User getUserById(String id) throws UserNotFoundException{
 		
-		User user= repository.findOne(Integer.parseInt(id));
+		User user= userRepository.findOne(Integer.parseInt(id));
 		
 		if(user == null)
 			throw new UserNotFoundException(String.format("No user found for id "+id));
@@ -49,14 +50,14 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateUser(User user) throws UserNotFoundException {
 		
-		User userSearch = repository.findOne(user.getUserId());
+		User userSearch = userRepository.findOne(user.getUserId());
 		
 		if(userSearch == null)
 			throw new UserNotFoundException(String.format("No user found for id "+user.getUserId()));
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		repository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city);
+		userRepository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city);
 		
 	}
 	
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService {
 		
 		User u = new User(user.getFirstName(), user.getLastName(), city, Gender.fromValue(user.getGender().value()));
 		
-		User userToAdd = repository.save(u);
+		User userToAdd = userRepository.save(u);
 		
 		ResponseDTO response = new ResponseDTO();
 		
@@ -83,6 +84,6 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void deleteUser(String id){
 		
-		repository.delete(Integer.parseInt(id));
+		userRepository.delete(Integer.parseInt(id));
 	}
 }

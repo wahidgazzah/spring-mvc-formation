@@ -71,10 +71,10 @@ div#logo {
 	background-image:url(../images/team-logo.png) ; 
    	background-repeat: no-repeat;
     background-size: 150px 33px;
-    height: 12%;
+    height: 15%;
     position: absolute;
     width: 16%;
-	margin: 30px;
+	margin: 28px;
 }
 div#home-title {
     font-size: 1.5em;
@@ -185,6 +185,11 @@ div#home-title {
 	margin:5px 0 ;
 	border-radius: 10px 0;
 }
+
+.menu ul li.selected{
+	background-color: #ccc;
+}
+
 .menu ul li a{
 	color: #0066b3;
 }
@@ -201,7 +206,7 @@ div#home-title {
     padding: 0;
 }
 .main ul {
-    margin: 0 0 0 5em;
+   # margin: 0 0 0 5em;
 }
 
 .main p {
@@ -267,7 +272,19 @@ div#home-title {
     max-width: 15em;
     padding: 0.2em 0.3em;
     vertical-align: middle;
+    text-indent: 5px;
+    border-radius: 12px;
 }
+
+
+
+select {
+	text-indent: 2px;
+    border-radius: 5px;
+    padding-right: 20px;
+}
+
+
 .form-container button {
     background: none repeat scroll 0 0 #000;
     border-color: #000;
@@ -350,18 +367,18 @@ h3{
 }
 
 
-.error-title{
-	text-align: center;
-}
 
-.error-title h3{
-	color: #CC0000 !important;
+
+.error-message{
+	text-align: center;
+	color: #0066b3;
+	font-weight: bold;
 }
 
 .error-message h3{
-	text-align: center;
-	
+	color: #CC0000 !important;
 }
+
 
 .error {
 	margin: 0.25em 0 1em;
@@ -372,8 +389,8 @@ h3{
 }
 
 .radio{
-	width: 40%;
-	margin: -23px 0 0 113px;
+	width: 45%;
+	margin:  -25px 0 0 125px;
 }
 
 

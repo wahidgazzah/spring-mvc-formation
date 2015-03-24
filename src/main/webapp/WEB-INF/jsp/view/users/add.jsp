@@ -47,8 +47,8 @@
 								<form:label path="gender"><strong><spring:message code="gender" /></strong></form:label>
 								<div class="radio"> 
 									<form:radiobuttons path="gender" items="${genderList}" />
+									<form:errors path="gender" element="label" cssClass="error"/>
 								</div>
-								<form:errors path="gender" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label> 

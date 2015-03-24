@@ -10,6 +10,26 @@
 				<h3><spring:message code="user.edit" /></h3>
 			</div>
 			<div class="section">
+			
+				<c:choose>
+					<c:when test="${status eq 'SUCCESS'}">
+						<div id="main-message">
+							<div id="form-container">
+								<div id="success">
+									<spring:message code="success" />
+								</div>
+							</div>
+						</div>
+					</c:when>
+					<c:when test="${status eq 'WRONG_DATA'}">
+						<div id="main-message">
+							<div id="form-container">
+								<div id="error"><spring:message code="wrong-data" /></div>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>				
+			
 				<form:form method="post" action="/users/do-edit" modelAttribute="user">
 					<div class="user">
 						<ul>
@@ -37,6 +57,7 @@
 										</c:choose>
 									</c:forEach>
 								</spring:bind>
+								<form:errors path="gender" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label>
@@ -54,6 +75,7 @@
 										</c:forEach>
 									</select>
 								</spring:bind>
+								<form:errors path="city" element="label" cssClass="error"/>
 							</li>
 						</ul>
 					</div>

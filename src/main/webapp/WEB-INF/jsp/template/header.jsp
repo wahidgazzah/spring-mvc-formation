@@ -2,7 +2,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="header">
-	<div id="logo"></div>
+
+	<a href="<spring:url value="/"></spring:url>">
+		<div id="logo"></div>
+	</a>
+	
 	<div id="home-title">
 		<h3><spring:message code="application.name"/></h3>
 	</div>

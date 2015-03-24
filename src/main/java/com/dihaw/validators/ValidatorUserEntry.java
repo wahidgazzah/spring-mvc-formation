@@ -51,6 +51,14 @@ public class ValidatorUserEntry implements Validator {
 				ValidationSupportUtils.rejectIfContainsSpecialChars(errors, "lastName", "validation.bad.chars");
 			}
 		}
+		
+		if (!errors.hasFieldErrors("gender") && target.getGender().value() != null) {
+			
+			if (!errors.hasFieldErrors("gender")) {
+				ValidationSupportUtils.rejectIfContainsSpecialChars(errors, "gender", "validation.bad.chars");
+			}
+		}		
+		
 	}
 
 }
