@@ -11,20 +11,18 @@
  
 <div class="menu">
 	<ul>
-		
-			
-		<li ${fn:contains(pageContext.request.requestURI, 'jsp/index') ? 'class="selected"' : ''}>
-			<a href="${aboutUrl}"><spring:message code="menu.about" /></a>
+		<li ${fn:contains(pageContext.request.requestURI, 'jsp/index') ? 'class="current"' : ''}>
+			<a href="${aboutUrl}"><b><spring:message code="menu.about" /></b></a>
 		</li>
 		
-		<li ${fn:contains(pageContext.request.requestURI, 'jsp/view/index') ? 'class="selected"' : ''}>
-			<a href="${helloUrl}"><spring:message code="menu.hello" /></a>
+		<li ${fn:contains(pageContext.request.requestURI, 'jsp/view/index') ? 'class="current"' : ''}>
+			<a href="${helloUrl}"><b><spring:message code="menu.hello" /></b></a>
 		</li>
-		<li ${fn:contains(pageContext.request.requestURI, 'persons') ? 'class="selected"' : ''}>
-			<a href="${personListUrl}"><spring:message code="menu.persons" /></a>
+		<li ${fn:contains(pageContext.request.requestURI, 'persons') ? 'class="current"' : ''}>
+			<a href="${personListUrl}"><b><spring:message code="menu.persons" /></b></a>
 		</li>
-		<li ${fn:contains(pageContext.request.requestURI, 'users') ? 'class="selected"' : ''}>
-			<a href="${userListUrl}"><spring:message code="menu.users" /></a>
+		<li ${fn:contains(pageContext.request.requestURI, 'users') ? 'class="current"' : ''}>
+			<a href="${userListUrl}"><b><spring:message code="menu.users" /></b></a>
 		</li>
 	</ul>
 </div>

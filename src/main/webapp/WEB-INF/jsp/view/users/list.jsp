@@ -26,6 +26,7 @@
 			    </ul>
 			</div>
 				
+			<center>
 			<table  style="width: 90%" class="reference">
 				<tr class="head">
 					<th><spring:message code="userId" /></th>
@@ -43,9 +44,15 @@
 						<td>${user.lastName}</td>
 						<td>${user.gender}</td>
 						<td>${user.city.cityName}</td>
-						<td class="edit"><a href="edit?id=${user.userId}"><spring:message code="edit" /></a></td>
+						<td class="edit">	
+							<a href="edit?id=${user.userId}" >
+								<img src="<c:url value="/static/images/action/edit-icon.png" />" style="max-height: 22px;">
+							</a>	
+						</td>	
 						<td class="delete">
-							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.userId})"><spring:message code="delete" /></a>
+							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.userId})">
+								<img src="<c:url value="/static/images/action/delete-icon.png" />" style="max-height: 22px;">
+							</a>
 						</td>
 					</tr>
 				</c:forEach>
