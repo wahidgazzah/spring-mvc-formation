@@ -24,6 +24,8 @@ import com.dihaw.dto.ResponseDTO;
 import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
+import com.dihaw.entity.UserRole;
+import com.dihaw.entity.UserStatus;
 import com.dihaw.entity.User;
 import com.dihaw.exception.CustomGenericException;
 import com.dihaw.services.CityService;
@@ -42,6 +44,8 @@ public class UserController {
 	public static final String RESULT_ATTRIBUTE = "result";
 	public static final String CITY_MODEL_ATTRIBUTE = "cityList";
 	public static final String GENDER_MODEL_ATTRIBUTE = "genderList";
+	public static final String USER_STATUS_MODEL_ATTRIBUTE = "statusList";
+	public static final String USER_ROLES_MODEL_ATTRIBUTE = "roleList";
 	
 	private static String ERROR_MESSAGE = "errorMessage";
 	private static String RESPONSE_STATUS = "status";
@@ -66,13 +70,33 @@ public class UserController {
 	}
 	
 	@ModelAttribute(GENDER_MODEL_ATTRIBUTE)
-	public List<String> GenderModelAttribute() {
+	public List<String> genderModelAttribute() {
 		
 		List<String> genderList = new ArrayList<String>();
 		genderList.add(Gender.Female.value());
 		genderList.add(Gender.Male.value());
 
 		return genderList;
+	}
+	
+	@ModelAttribute(USER_STATUS_MODEL_ATTRIBUTE)
+	public List<String> userStatusModelAttribute() {
+		
+		List<String> userSatusList = new ArrayList<String>();
+		userSatusList.add(UserStatus.Enabled.value());
+		userSatusList.add(UserStatus.Disabled.value());
+
+		return userSatusList;
+	}
+	
+	@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE)
+	public List<String> rolesModelAttribute(){
+		
+		List<String> roles = new ArrayList<String>();
+		roles.add(UserRole.ROLE_ADMIN.value());
+		roles.add(UserRole.ROLE_USER.value());
+
+		return roles;
 	}
 	
 	@ModelAttribute(CITY_MODEL_ATTRIBUTE)
@@ -106,8 +130,10 @@ public class UserController {
 
 	@RequestMapping(value="/add", method = RequestMethod.GET)
 	public String registerUser(Model model, ModelMap modelMap,
-			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
+			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList,
+			@ModelAttribute(USER_STATUS_MODEL_ATTRIBUTE) List<String> userSatusList,
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
+			@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE) List<String> userRoles,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, BindingResult bindingResult) {
 		
 		logger.info("---------- Showing add user view");
@@ -123,6 +149,8 @@ public class UserController {
 
 		model.addAttribute(USER_FORM_ATTRIBUTE, new User());
 		model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
+		model.addAttribute(USER_STATUS_MODEL_ATTRIBUTE, userSatusList);
+		model.addAttribute(USER_ROLES_MODEL_ATTRIBUTE, userRoles);
 		model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 		
 		return ADD_VIEW;
@@ -131,7 +159,8 @@ public class UserController {
 
 	@RequestMapping(value = "/do-add", method = RequestMethod.POST)
 	public String addUser(Model model,
-			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
+			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList,
+			@ModelAttribute(USER_STATUS_MODEL_ATTRIBUTE) List<String> userSatusList,
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, 
 			BindingResult bindingResult ) {
@@ -142,6 +171,7 @@ public class UserController {
 			
 			model.addAttribute("addErrors", bindingResult);
 			
+			model.addAttribute(USER_STATUS_MODEL_ATTRIBUTE, userSatusList);
 			model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
 			model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 		}
@@ -166,7 +196,9 @@ public class UserController {
 
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
 	public String editUser(Model model, ModelMap modelMap,
-			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList, 
+			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList,
+			@ModelAttribute(USER_STATUS_MODEL_ATTRIBUTE) List<String> userSatusList,
+			@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE) List<String> userRoles,
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<City> cityList,
 			@RequestParam String id,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user,
@@ -190,7 +222,9 @@ public class UserController {
 		}
 		
 		model.addAttribute(USER_FORM_ATTRIBUTE, user);
+		model.addAttribute(USER_STATUS_MODEL_ATTRIBUTE, userSatusList);
 		model.addAttribute(GENDER_MODEL_ATTRIBUTE, genderList);
+		model.addAttribute(USER_ROLES_MODEL_ATTRIBUTE, userRoles);
 		model.addAttribute(CITY_MODEL_ATTRIBUTE, cityList);
 		
 		return EDIT_VIEW;
@@ -220,7 +254,6 @@ public class UserController {
 			redirectPath.append("redirect:" + CONTROLLER_BASE_PATH + SELECT_USERS_SUB_PATH );
 			return redirectPath.toString();
 			
-//			return "redirect:/users/list";
 			
 		}
 		
@@ -233,6 +266,26 @@ public class UserController {
 		
 		try {
 			userService.deleteUser(id);
+		} catch (UserNotFoundException e) {
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
+		
+		return "redirect:/users/list";
+	}
+	
+	@RequestMapping("/changeStatus")
+	public String userChangeStatus(Model model, 
+			@RequestParam String id, @RequestParam String status) {
+		
+		logger.info("---------- RequestMapping: /changeStatus");
+		
+		UserStatus userStatus= (status.equals(UserStatus.Enabled.value()) ? UserStatus.Disabled : UserStatus.Enabled);
+		
+		try {
+			userService.changeStatus(id, userStatus);
 		} catch (UserNotFoundException e) {
 			
 			model.addAttribute(ERROR_MESSAGE, e.getMessage());

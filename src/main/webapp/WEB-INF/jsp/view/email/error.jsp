@@ -8,11 +8,10 @@
 		<div style="margin: 70px;">
 			<div class="error-message">
 				<div class="error-title">
-					<h3><spring:message code="error.title" /></h3>
+					<h3>Sorry, the email was not sent because of the following error:</h3>
 				</div>
-				<spring:message code="systemErrorCode"/><br/>
-				<span><spring:message code="tryLater"/></span>
+				<h3>${exception.message}</h3>
 			</div>
 		</div>
-    </tiles:putAttribute>
+	</tiles:putAttribute>
 </tiles:insertDefinition>

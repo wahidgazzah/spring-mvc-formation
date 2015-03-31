@@ -18,10 +18,12 @@
 			</div>
 			<ul>
 				<li><strong>Spring MVC</strong></li>
+				<li><strong>Spring Security</strong></li>
 				<li><strong>Maven</strong></li>
 				<li><strong>JPA</strong>: Java Persistence API</li>
 				<li><strong>Spring Data</strong>: used for the list pagination ( size, page, oderBy)</li>
 				<li><strong>Tiles</strong>: in order to create the template (header, body, menu, footer)</li>
+				<li><strong>Sending Email</strong></li>
 				<li><strong>Ehcache</strong>: in order to optimize the database access and the cache of the application</li>
 				<li><strong>logback</strong>: <a href="http://logback.qos.ch/" target="_blank">Logback</a> is intended as a successor to the popular log4j project, <a href="http://logback.qos.ch/reasonsToSwitch.html" target="_blank">picking up where log4j leaves off</a></li>
 			</ul>
@@ -34,6 +36,14 @@
 				<li>Import the <strong>database-script.sql</strong> in your <strong>userdb</strong> database</li>
 			</ul>
 			</br></br> 
+			<div class="about-title">
+				<h3>Spring Security</h3>
+			</div>
+			<ul>
+				<li>Use <strong>admin</strong> & <strong>password</strong> to logged as <strong>ROLE_ADMIN</strong> Role</li>
+				<li>Use <strong>user</strong> & <strong>password</strong> to logged as <strong>ROLE_USER</strong> Role</li>
+			</ul>
+			</br></br>
 			<div class="about-title">
 				<h3>Import the Git project using STS IDE</h3>
 			</div>

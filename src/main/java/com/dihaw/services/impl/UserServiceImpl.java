@@ -1,5 +1,8 @@
 package com.dihaw.services.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
+import com.dihaw.entity.UserStatus;
 import com.dihaw.repository.CityRepository;
 import com.dihaw.repository.UserRepository;
 import com.dihaw.services.UserService;
@@ -33,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public Page<User> users(Pageable pageable){
 		
-		return userRepository.findAllUsers(pageable);
+		return userRepository.findAll(pageable);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -50,14 +54,15 @@ public class UserServiceImpl implements UserService {
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateUser(User user) throws UserNotFoundException {
 		
-		User userSearch = userRepository.findOne(user.getUserId());
+		User userSearch = userRepository.findOne(user.getId());
 		
 		if(userSearch == null)
-			throw new UserNotFoundException(String.format("No user found for id "+user.getUserId()));
+			throw new UserNotFoundException(String.format("No user found for id "+user.getId()));
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		userRepository.updateUser(user.getUserId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city);
+		userRepository.updateUser(user.getId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city, 
+				user.getEmail(), user.getPassword());
 		
 	}
 	
@@ -66,7 +71,12 @@ public class UserServiceImpl implements UserService {
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		User u = new User(user.getFirstName(), user.getLastName(), city, Gender.fromValue(user.getGender().value()));
+		User u = new User(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+				Gender.fromValue(user.getGender().value()), UserStatus.fromValue(user.getStatus().value()), city);
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//		Calendar now = Calendar.getInstance();
+//		user.setCreationDate(sdf.format(now.getTime()));
 		
 		User userToAdd = userRepository.save(u);
 		
@@ -85,5 +95,12 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(String id){
 		
 		userRepository.delete(Integer.parseInt(id));
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeStatus(String id, UserStatus userStatus) throws UserNotFoundException {
+
+		userRepository.changeStatus(Integer.parseInt(id), UserStatus.fromValue(userStatus.value()));
+		
 	}
 }

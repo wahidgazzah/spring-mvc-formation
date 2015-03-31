@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
+import com.dihaw.entity.UserStatus;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -26,30 +27,37 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Page<User> findAllUsers(Pageable pageable);
 
     /**
-     * Update the {@link User} by his unique userId.
+     * Update the {@link User} by his unique id.
      * 
-     * @param userId the userId to update
+     * @param id the id to update
      * @param firstName the user first name
      * @param lastName the user last name
      * @param gender the user gender (enum value)
      * @param city the user city
      */
     @Modifying
-    @Query("update User u set u.firstName= :firstName, u.lastName= :lastName, u.gender= :gender, u.city= :city where u.userId= :userId")	
-	void updateUser(@Param("userId") int userId, 
+    @Query("update User u set u.firstName= :firstName, u.lastName= :lastName, u.gender= :gender, u.city= :city, " +
+    		"u.email= :email, u.password= :password where u.id= :id")	
+	void updateUser(@Param("id") 		int id, 
 					@Param("firstName") String firstName, 
-					@Param("lastName") String lastName, 
-					@Param("gender") Gender gender, 
-					@Param("city") City city 
+					@Param("lastName") 	String lastName, 
+					@Param("gender") 	Gender gender, 
+					@Param("city") 		City city,
+					@Param("email") 	String email, 
+					@Param("password") 	String password
 				);
     
     /**
-     * Find a single {@link User} by his unique userId.
+     * Find a single {@link User} by his unique id.
      * 
-     * @param userId the user name to look the User for
+     * @param id the user name to look the User for
      * @return the {@link User} or <code>null</code>
      */
-    @Query("select u from User u where u.userId= :id")
-    User findByUserId(@Param("id") int id);
+    @Query("select u from User u where u.id= :id")
+    User findByid(@Param("id") int id);
+
+    @Modifying
+    @Query("update User u set u.status= :status where u.id= :id")	
+	void changeStatus(@Param("id") int id, @Param("status") UserStatus userStatus);
     
 }

@@ -75,12 +75,10 @@ div#logo {
 	#margin: -10px 25px 0;
 }
 div#home-title {
+    float: left;
     font-size: 1.5em;
-    margin: 25px 0 0 340px;
+    margin: 0 0 0 30px;
 }
-
-
-
 
 #main-message{
 	box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 2px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 1) inset, 0 -1px 2px rgba(0, 0, 0, 0.25) inset;
@@ -90,15 +88,6 @@ div#home-title {
 	border-radius:5px;
 	margin: 0 0 15px;
 }
-
-
-
-
-
-
-
-
-
 
 #message
 {
@@ -152,125 +141,173 @@ div#home-title {
 }
 
 .menu{
-	position: relative;
-	background: url(../images/menu/menu_bg.gif) repeat-x;
-	height: 46px;
-	list-style: none;
-	margin: 75px 0 0;
-}
-.menu ul{
-	padding: 14px 0 0 5px;
-}
-.menu li{
-	display: inline-block;
-	float:left;
-	margin: -14px 0 0;
-}
-.menu li ul.submenu{
-	background: url("../images/menu/dropdown.png") no-repeat scroll 0 0 / 100% 100% rgba(0, 0, 0, 0);	
-	border-radius: 0 0 1em 1em;
-	box-shadow: 0.01em 0.1em 0.1em 0.01em #aaa;
-    height: 25em;
-    left: 0;
-	margin: 3.3em 3.1em 0;
-    position: absolute;
-	display: none;
-	width:93%;
-	height: 130px;
-	#opacity: 0.95;
-}
-.menu li:hover ul.submenu {
-	display: block;
-}
-/* ----  */
-.menu li:hover a, .menu li a:hover{
-	color: #fff;
-	background: url(../images/menu/menu_hover_left.gif) no-repeat;
-	background-position: left;
-}
-
-.menu li:hover a b, .menu li a:hover b{
-	background: url(../images/menu/menu_hover_right.gif) no-repeat right top;
-}
-/* ----  */
-
-.menu li ul.submenu li.col{
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background-color: #fcfcfc;
+    height: 400px;
+    border-right: 1px solid #eee;
+    margin-right: 5px;
+    padding-right: 4px;
     float: left;
-    padding: 0.5em 0 0;
-    width: 25%;
-	#border-right: 1px solid #cfe2de;
+	width: 190px;
+	margin-top: -5px;
 }
-.menu li ul.submenu li.col h3{
-	color: #1f51a0;
-	margin: 15px;
-    font-size: 1.1em;
-    font-weight: bold;
-    line-height: 0;
-}
-.menu li ul.submenu li.col hr {
-	background:url("../images/menu/h-separator.png") no-repeat scroll left center / 90% auto transparent;
-	border: 0 none;
-}
-.menu li ul.submenu li.col ul{
-	width: 80%;
-	padding: 0;
-	margin: -5px 0 0 10px;
-}
-.menu li ul.submenu ul.items li{
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-    clear: both;
-    float: none;
-    height: 2em;
-    width: 100%;
-}
-.menu li ul.submenu ul.items li a{
-	background: none repeat scroll 0 0 transparent;
-    color: #002f2f;
-    display: block;
-    font-size: 0.9em;
-    font-weight: normal;
-    line-height: 1.2;
-    text-align: left;
-	font-weight: bold;
-    text-transform: capitalize;
-}
-.menu li ul.submenu ul.items li a:hover{
-	text-decoration:underline;
-}
-.menu li a{
-	float: left;
-	display: block;
-	color:#002f2f;
-	text-decoration: none;
-	font-family: sans-serif;
-	font-size: 13px;
-	font-weight: bold;
-	padding:0 0 0 16px; 
-	height: 46px;
-	line-height: 46px;
+
+.menu ul{
+	list-style:none;
+	line-height:28px; 
+	margin: 30px 0 0 5px;
 	text-align: center;
-	cursor: pointer;	
 }
-.menu li a b{
-	float: left;
-	display: block;
-	padding: 2px 24px 0 8px; 
+
+.menu ul li{
+	background-color: #f1f1f1;
+	margin:5px 0 ;
+	border-radius: 10px 0;
 }
-.menu li.current a, .menu li a:hover{
-	color: #DBDADA;
-	background: url(../images/menu/menu_hover_left.gif) no-repeat;
-	background-position: left;
+
+.menu ul li.selected{
+	background-color: #ccc ;
+}
+
+.menu ul li a{
+	color: #0066b3;
+	padding: 5px 70px;
+}
+
+.menu ul li.selected a{
+	color: #000;
+}
+
+.menu ul li:hover{
+	background-color: #cccccc;
+}
+
+.menu .text{
+	color: #000;
+	font-weight: bold;
+	width:155px;
+	margin:15px 15px 0;
+	text-transform: capitalize;
+	text-align: center;
+}
+
+
+
+.menu .text em {
+    font-style: italic;
+    color: #b36306 ;
+}
+
+
+.menu p{
+	margin:2px;
+	overflow:hidden;
+}
+
+.user-area .login{
+	border-radius: 5px;
+	background: none repeat scroll 0 0 #000;
+    border: 0 none;
+    border-radius: 5px;
+    color: #fff;
+    font: bold 13px/12px Arial,Helvetica,Verdana,sans-serif;
+    letter-spacing: 0.4px;
+
+	margin: 15px -115px 0;
+    padding: 7px 0;
+    
+    width: 100px;
+}
+
+
+.user-area .logout{
+	border-radius: 5px;
+	background: none repeat scroll 0 0 #000;
+    border: 0 none;
+    border-radius: 5px;
+    color: #fff;
+    font: bold 13px/12px Arial,Helvetica,Verdana,sans-serif;
+    letter-spacing: 0.4px;
+    
+    margin: 15px -115px 0;
+    padding: 7px 0;
+    
+    width: 100px;
+}
+
+.user-area .login:hover{
+	background: green;
+	background: -moz-linear-gradient(top,  green 0%, #404040 70%, #000 30%, #000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,green), color-stop(70%,#404040), color-stop(30%,#000), color-stop(100%,#000));
+	background: -webkit-linear-gradient(top,  green 0%,#404040 70%,#000 30%,#000 100%);
+	background: -o-linear-gradient(top,  green 0%,#404040 70%,#000 30%,#000 100%);
+	background: -ms-linear-gradient(top,  green 0%,#404040 70%,#000 30%,#000 100%);
+	background: linear-gradient(to bottom,  green 0%,#404040 70%,#000 30%,#000 100%);
+}
+
+.user-area .logout:hover{
+	background: red;
+	background: -moz-linear-gradient(top,  red 0%, #404040 70%, #000 30%, #000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,red), color-stop(70%,#404040), color-stop(30%,#000), color-stop(100%,#000));
+	background: -webkit-linear-gradient(top,  red 0%,#404040 70%,#000 30%,#000 100%);
+	background: -o-linear-gradient(top,  red 0%,#404040 70%,#000 30%,#000 100%);
+	background: -ms-linear-gradient(top,  red 0%,#404040 70%,#000 30%,#000 100%);
+	background: linear-gradient(to bottom,  red 0%,#404040 70%,#000 30%,#000 100%);
+}
+
+.user-area .login a{
+	color: #fff;
+	padding: 5px 30px;
+}
+.user-area .logout a{
+	color: #fff;
+	padding: 5px 30px;
+}
+
+.user-area{
+	float:right;
+	margin:-15px 0 0;
 	
 }
-.menu li.current a b, .menu li a:hover b{
-	background: url(../images/menu/menu_hover_right.gif) no-repeat right top;
+.user-area .title{
+	float:left;
+	text-transform:uppercase;
+	margin:0 10px 0 0;
+	line-height:18px;
 }
 
+.user-area .btn{
+	float:right;
+	background:#000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .main{
-	background: #fafafa;
 	margin-right: 0;
-	 min-height: 400px;
+	float: left;
+	width: 740px;
 	margin: 0;
     padding: 0;
 }
@@ -282,16 +319,15 @@ div#home-title {
     margin: 1em 2em 1.5em;
 }
 .footer{
-	 margin: 0 0 0 425px;
+	 margin: 0 0 0 25px;
 }
 
 .header{
 	background: #fafafa;
-	border-radius: 10px 10px 0 0;
-	margin: 0 0 -25px;
+    border-radius: 10px 10px 0 0;
+    padding: 35px 0 0;
+    text-align: center;
     width: 950px;
-	float: left;
-	padding: 0;
 }
 
 .heading {
@@ -309,18 +345,36 @@ div#home-title {
     width: 50%;
 }
 .section {
-    display: inline-table;
-    margin: 0 0 10px;
+    margin-left: auto;
+    margin-right: auto;
+	#text-align: center;
 }
+
+.login {
+    margin-left: 175px;
+}
+
+.login li.huge{
+	width: 50% !important;
+}
+
 .user {
-        float: right;
+	#float: right;
+	margin: 0 0 0 5em;
     width: 80%;
 }
+
+.user ul li{
+	border-bottom: 1px solid #d0d0d0;
+    float: left;
+    height: 2.5em	
+}
+
 .section li.huge {
     display: inline-block;
     margin: 5px 0;
     position: unset;
-    width: 100%;
+    width: 49%;
 }
 
 .section li.huge label {
@@ -329,30 +383,49 @@ div#home-title {
     margin: 0 0.7em 0 0.9em;
     max-width: 15em;
     vertical-align: middle;
-    width: 18%;
+    width: 34%;
 }
+
 .section li.huge input {
-    background: none repeat scroll 0 0 #fff;
+    background:#fcfcfc;
     border: 1px solid #ddd;
     box-shadow: 0.1em 0.1em 0.1em #aaa;
     color: #666;
     display: inline-block;
     font-size: 1em;
-    height: 1.8em;
+    height: 1.7em;
     line-height: 1.2em;
-    max-width: 15em;
+    max-width: 12em;
     padding: 0.2em 0.3em;
     vertical-align: middle;
-    text-indent: 5px;
-    border-radius: 12px;
+    text-indent: 2px;
+    border-radius: 5px;
 }
 
+.section li.radio {
+    display: inline-block;
+    margin: 5px 0;
+    position: unset;
+    width: 49%;
+}
 
+.section li.radio label{
+	 display: inline-block;
+    line-height: 1.2em;
+    margin: 0 0.7em 0 0.9em;
+    max-width: 15em;
+    vertical-align: middle;
+    width: 35%;
+}
+.section li.radio div.radio{
+    display: flex;
+    margin:-20px 0 0px 115px;
+}
 
 select {
 	text-indent: 2px;
     border-radius: 5px;
-    padding-right: 20px;
+    padding-right: 70px;
 }
 
 
@@ -368,6 +441,36 @@ select {
     margin: 2px 0 0;
     padding: 5px 14px;
     position: relative;
+}
+
+
+.action-green{
+	margin-left: 10px; 
+	max-height: 20px; 
+	background: green; 
+	border-radius: 10px;
+}
+
+.action-red{
+	margin-left: 10px; 
+	max-height: 20px; 
+	background: red; 
+	border-radius: 10px;
+}
+
+#user-connect{
+  background:#bfd70e;
+  border-radius:50%;
+  width:16px;
+  height:16px;
+  margin: 0 0 0 35px;
+}
+#user-block{
+  background:#FF0000;
+  border-radius:50%;
+  width:16px;
+  height:16px;
+  margin: 0 0 0 35px;
 }
 
 .reference .edit a{
@@ -424,10 +527,6 @@ h3{
 	 color: #b36306;
 }
 
-.about ul li em {
-    font-style: italic;
-    color: #0066b3;
-}
 
 .about-title{
 	 text-align: center;
@@ -439,6 +538,13 @@ h3{
 
 
 
+.error-title {
+    text-align: center;
+}
+
+.error-title h3{
+	color: #cc0000 !important;
+}
 
 .error-message{
 	text-align: center;
@@ -447,9 +553,14 @@ h3{
 }
 
 .error-message h3{
-	color: #CC0000 !important;
+	#color: #CC0000 !important;
 }
 
+em {
+    font-style: italic;
+    color: #000;
+    font-size: 1em;
+}
 
 .error {
 	margin: 0.25em 0 1em;
@@ -460,12 +571,11 @@ h3{
 }
 
 .radio{
-	width: 45%;
-	margin:  -25px 0 0 125px;
+	display: initial;
 }
 
 
-.section li.huge-btn {
+.section .huge-btn {
     display: inline-block;
     margin: 30px;
     float: right;
@@ -479,7 +589,6 @@ h3{
 	display: inline-block;
     margin: 5px;
 }
-
 
 button{
 	background: #000;
@@ -526,9 +635,8 @@ button:hover{
 
 .btn-div {
     float: right;
-    margin: 30px;
+    margin: 25px;
 }
-
 
 .close {
 	background: #606061 !important;
@@ -564,14 +672,11 @@ button:hover{
     padding: 4px;
     position: fixed;
     right: 35%;
-    top: 45%;
+    top: 40%;
     width: 250px;
     padding: 15px 0 0 15px;
     text-align: center;
 }
-
-
-
 
 .pagination {
   margin: 20px 0;

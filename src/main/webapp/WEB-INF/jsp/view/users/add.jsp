@@ -5,7 +5,7 @@
 
 <tiles:insertDefinition name="defaultTemplate">
    <tiles:putAttribute name="body">
-		<div style="padding: 60px 10px 0;">
+		<div style="padding: 50px 0 0;">
 			<div class="title">
 				<h3><spring:message code="registrationForm" /></h3>
 			</div>
@@ -44,12 +44,52 @@
 								<form:errors path="lastName" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
+								<form:label path="email"><strong><spring:message code="email" /></strong></form:label> 
+								<form:input path="email" name="email" />
+								<form:errors path="email" element="label" cssClass="error"/>
+							</li>
+							<li class="huge">
+								<form:label path="password"><strong><spring:message code="password" /></strong></form:label> 
+								<form:input path="password" name="password" />
+								<form:errors path="password" element="label" cssClass="error"/>
+							</li>
+							<li class="radio">
 								<form:label path="gender"><strong><spring:message code="gender" /></strong></form:label>
 								<div class="radio"> 
 									<form:radiobuttons path="gender" items="${genderList}" />
 									<form:errors path="gender" element="label" cssClass="error"/>
 								</div>
 							</li>
+							<li class="radio">
+								<form:label path="status"><strong><spring:message code="status" /></strong></form:label>
+								<div class="radio"> 
+									<form:radiobuttons path="status" items="${statusList}" />
+									<form:errors path="status" element="label" cssClass="error"/>
+								</div>
+							</li>
+							
+							
+							
+							<%-- li class="gender">
+								<label><strong><spring:message code="role" /></strong></label>
+								
+								<spring:bind>
+									<select name="role">
+										<c:forEach items='${roleList}' var='role'>
+											<option value="${role.value}">${role.value}</option>
+										</c:forEach>
+									</select>
+								</spring:bind>								
+								
+							</li--%>
+							
+							
+							
+							
+							
+							
+							
+							
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label> 
 								<spring:bind path="city">
@@ -61,6 +101,7 @@
 								</spring:bind>
 								<form:errors path="city" element="label" cssClass="error"/>
 							</li>
+
 						</ul>
 					</div>
 					<ul>

@@ -9,8 +9,8 @@
 	
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
  		<property name="locations" value="WEB-INF/conf/jdbc.properties" />
-	</bean> 
-       
+	</bean>
+	
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
 		<property name="defaultLocale" value="fr" ></property>
 	</bean>

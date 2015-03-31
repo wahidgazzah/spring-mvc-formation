@@ -13,8 +13,8 @@ public class HelloController {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private static int counter = 0;
-	private static String INDEX_VIEW = "view/index";
-	private static String ABOUT_VIEW = "index";
+	private static String INDEX_VIEW = "view/hello/index";
+	private static String ABOUT_VIEW = "view/about/index";
 	private static String MESSAGE = "message";
 	private static String COUNTER = "counter";
 	
@@ -24,7 +24,7 @@ public class HelloController {
 		model.addAttribute(MESSAGE, "Welcome");
 		model.addAttribute(COUNTER, ++counter);
 		
-		logger.debug("[welcome] counter : {}", counter);
+		logger.debug("welcome counter : {}", counter);
  
 		return INDEX_VIEW;
  
@@ -36,7 +36,7 @@ public class HelloController {
 		model.addAttribute(MESSAGE, "Welcome " + name);
 		model.addAttribute(COUNTER, ++counter);
 		
-		logger.debug("[welcomeName] counter : {}", counter);
+		logger.debug("welcomeName counter : {}", counter);
 		
 		return INDEX_VIEW;
  
@@ -47,4 +47,5 @@ public class HelloController {
  
 		return ABOUT_VIEW;
 	}
+	
 }

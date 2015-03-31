@@ -5,7 +5,7 @@
 
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
-		<div style="padding: 60px 10px 0;">
+		<div style="padding: 50px 0 0;">
 			<div class="title">
 				<h3><spring:message code="user.edit" /></h3>
 			</div>
@@ -43,13 +43,22 @@
 								<form:errors path="lastName" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
+								<form:label path="email"><strong><spring:message code="email" /></strong></form:label> 
+								<form:input path="email" name="email" />
+								<form:errors path="email" element="label" cssClass="error"/>
+							</li>
+							<li class="huge">
+								<form:label path="password"><strong><spring:message code="password" /></strong></form:label> 
+								<form:input path="password" name="password" />
+								<form:errors path="password" element="label" cssClass="error"/>
+							</li>
+							<li class="huge">
 								<form:label path="gender"><strong><spring:message code="gender" /></strong></form:label>
 								<spring:bind path="gender">
 									<c:forEach items='${genderList}' var='genderName'>
 										<c:choose>
 											<c:when test="${genderName eq user.gender}">
-												<input type="radio" name="gender" value="${genderName}"
-													checked="checked">${genderName}
+												<input type="radio" name="gender" value="${genderName}"	checked="checked">${genderName}
 											</c:when>
 											<c:otherwise>
 												<input type="radio" name="gender" value="${genderName}">${genderName}
@@ -85,7 +94,7 @@
 							<a href="list" class="btn"><spring:message code="cancel" /></a>
 						</li>
 					</ul>
-					<form:hidden path="userId" value="${user.userId}" />
+					<form:hidden path="id" value="${user.id}" />
 				</form:form>
 			</div>
 		</div>

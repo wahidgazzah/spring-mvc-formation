@@ -26,31 +26,48 @@
 			    </ul>
 			</div>
 				
-			<center>
-			<table  style="width: 90%" class="reference">
+			<table class="reference">
 				<tr class="head">
-					<th><spring:message code="userId" /></th>
 					<th><spring:message code="firstName" /></th>
 					<th><spring:message code="lastName" /></th>
-					<th><spring:message code="gender" /></th>
-					<th><spring:message code="city" /></th>
+					<th><spring:message code="email" /></th>
+					<th><spring:message code="status" /></th>
+					<th><spring:message code="action" /></th>
 					<th><spring:message code="edit" /></th>
 					<th><spring:message code="delete" /></th>
 				</tr>
 				<c:forEach var="user" items="${result.content}" >
 					<tr>
-						<td>${user.userId}</td>
 						<td>${user.firstName}</td>
 						<td>${user.lastName}</td>
-						<td>${user.gender}</td>
-						<td>${user.city.cityName}</td>
+						<td>${user.email}</td>
+						<c:if test="${user.status eq 'Enabled'}">
+							<td>
+								<div id="user-connect" ></div>
+							</td>
+							<td>
+								<a href="changeStatus?id=${user.id}&status=${user.status}" >
+									<img class="action-red" src='<c:url value="/static/images/action/action.png" />'>
+								</a>
+							</td>
+						</c:if>
+						<c:if test="${user.status eq 'Disabled'}">
+							<td>
+								<div id="user-block" ></div>
+							</td>
+							<td>
+								<a href="changeStatus?id=${user.id}&status=${user.status}" >
+									<img class="action-green" src='<c:url value="/static/images/action/action.png" />'>
+								</a>
+							</td>						
+						</c:if>
 						<td class="edit">	
-							<a href="edit?id=${user.userId}" >
+							<a href="edit?id=${user.id}" >
 								<img src="<c:url value="/static/images/action/edit-icon.png" />" style="max-height: 22px;">
 							</a>	
 						</td>	
 						<td class="delete">
-							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.userId})">
+							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.id})">
 								<img src="<c:url value="/static/images/action/delete-icon.png" />" style="max-height: 22px;">
 							</a>
 						</td>

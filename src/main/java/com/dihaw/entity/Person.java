@@ -42,15 +42,5 @@ public class Person {
 		return String.format("Person [name = %s, email = %s, age = %d]", name, email, age);
 	}
 	
-	public static List<Person> createPersons() {
-		List<Person> persons = new ArrayList<Person>();
-		persons.add(new Person("Wahid", "wahid.gazzah@gmail.com", 29));
-		persons.add(new Person("Amine", "amin@mail.com", 28));
-		persons.add(new Person("wael", "wael@mail.com", 29));
-		persons.add(new Person("Mouhamed", "wael@mail.com", 32));
-		persons.add(new Person("Zakariya", "zak@mail.com", 33));
-		persons.add(new Person("Salah", "salah@mail.com", 31));
-		return persons;
-	}
 }
 

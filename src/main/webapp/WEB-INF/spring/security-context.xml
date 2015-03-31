@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<security:http 	auto-config="true">
+	
+		<security:access-denied-handler	error-page="/dihaw/403" />
+		
+		<security:anonymous 	granted-authority="ROLE_GUEST" username="guest"/>
+		
+		<security:form-login 	login-page="/login"
+								login-processing-url="/perform-login"
+								default-target-url="/" 
+								authentication-failure-url="/dihaw/error"
+								username-parameter="username"
+								password-parameter="password"/>
+								
+		<security:logout 		logout-url="/logout" 
+								logout-success-url="/about"/>
+								
+		<security:intercept-url pattern="/persons/**" 	access="ROLE_ADMIN, ROLE_USER" />
+		<security:intercept-url pattern="/users/**" 	access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/email/**" 	access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/**"/>
+		
+	</security:http>
+ 
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service 
+				data-source-ref="dataSource"
+				users-by-username-query="select username,password,enabled from user_authentication where username=?"
+				authorities-by-username-query="select u1.username, u2.role from user_authentication u1, user_authorization u2 where u1.user_id = u2.user_id and u1.username =?" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<bean id="dihaw403" class="com.dihaw.utils.DihawAccessDeniedHandler">
+		<property name="errorPage" value="dihaw/403" />
+	</bean>
+	
+	<bean id="expressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	
+</beans>

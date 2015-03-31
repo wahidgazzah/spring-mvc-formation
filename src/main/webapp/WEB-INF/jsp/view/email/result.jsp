@@ -5,13 +5,9 @@
 <tiles:insertDefinition name="defaultTemplate">
     <tiles:putAttribute name="body">
 	    <div style="padding:60px 10px 0;">
-			<div class="title">
-				<h3><spring:message code="title" /> </h3>
-			
-				<p><spring:message code="first" /> </p>
-				<h3><spring:message code="message" /> ${message}</h3>
-				<h3><spring:message code="counter" /> ${counter}</h3>
+	    	<div class="title">
+				<h3>Thank you, your email has been sent.</h3>
 			</div>
-		</div>
-    </tiles:putAttribute>
+	    </div>
+	</tiles:putAttribute>
 </tiles:insertDefinition>

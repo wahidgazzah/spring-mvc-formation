@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import com.dihaw.controller.exception.UserNotFoundException;
 import com.dihaw.dto.ResponseDTO;
 import com.dihaw.entity.User;
+import com.dihaw.entity.UserStatus;
 
 public interface UserService {
 	
@@ -18,5 +19,7 @@ public interface UserService {
 	public void deleteUser(String id) throws UserNotFoundException;
 	
 	public ResponseDTO registerUser(User user);
+
+	public void changeStatus(String id, UserStatus userStatus) throws UserNotFoundException;
 
 }
