@@ -5,8 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
-
-
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 		<div style="padding: 60px 10px 0;">
@@ -16,12 +14,25 @@
 				</h3>
 			</div>
 			<div class="section">
+				
+				<c:choose>
+					<c:when test="${not empty errorCode}">
+						<div id="main-message">
+							<div id="form-container">
+								<div id="error">
+									<spring:message code="${errorMessage}" />
+								</div>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>				
+			
 				<form name="loginForm" action="<c:url value='perform-login' />" method='POST'>
 					<div class="login">
 						<ul>
 							<li class="huge">
 								<label path="username"><strong><spring:message code="username" /></strong></label> 
-								<input path="username" name="username" value="admin"/>
+								<input path="username" name="username" value="admin@email.com"/>
 							</li>
 							<li class="huge">
 								<label path="password"><strong><spring:message code="password" /></strong></label> 

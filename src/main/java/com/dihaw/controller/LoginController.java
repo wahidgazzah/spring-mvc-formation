@@ -19,15 +19,30 @@ public class LoginController {
     @RequestMapping()
     public String login(Model model){
     	
+    	logger.info("----------> Show login view");
+    	
     	return LOGIN_VIEW;
     	
     }
     
+   
+	@RequestMapping(value="/perform-login", method = RequestMethod.POST)
+	public String performLogin(Model model){
+		
+		logger.info("----------> perform-login");
+		//custom login
+	
+		return null;
+	}
+
+
+    
     @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logout(Model model) {
-     
-    return login(model);
-     
+    	
+    	logger.info("----------> logout request");
+    	
+    	return login(model);
     }
 
 }

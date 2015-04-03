@@ -22,7 +22,7 @@ public class ValidatorUserEntry implements Validator {
 		User target = (User) arg0;
 		
 		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "validation.not.null");
-		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "validation.not.null");
+		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "username", "validation.not.null");
 		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "gender", "validation.not.null");
 		ValidationSupportUtils.rejectIfEmptyOrWhitespace(errors, "city", "validation.not.null");
 		
@@ -39,16 +39,16 @@ public class ValidatorUserEntry implements Validator {
 			}
 		}
 		
-		if (!errors.hasFieldErrors("lastName") && target.getLastName() != null) {
+		if (!errors.hasFieldErrors("username") && target.getUsername() != null) {
 			
-			if (target.getLastName().length() > MAX_LENGTH) {
-				errors.rejectValue("lastName", "validation.bad.max.length", new Object[]{MAX_LENGTH}, "validation.bad.max.length");
+			if (target.getUsername().length() > MAX_LENGTH) {
+				errors.rejectValue("username", "validation.bad.max.length", new Object[]{MAX_LENGTH}, "validation.bad.max.length");
 			}
-			if (target.getLastName().length() < MIN_LENGTH) {
-				errors.rejectValue("lastName", "validation.bad.min.length", new Object[]{MIN_LENGTH}, "validation.bad.min.length");
+			if (target.getUsername().length() < MIN_LENGTH) {
+				errors.rejectValue("username", "validation.bad.min.length", new Object[]{MIN_LENGTH}, "validation.bad.min.length");
 			}
-			if (!errors.hasFieldErrors("lastName")) {
-				ValidationSupportUtils.rejectIfContainsSpecialChars(errors, "lastName", "validation.bad.chars");
+			if (!errors.hasFieldErrors("username")) {
+				ValidationSupportUtils.rejectIfContainsSpecialChars(errors, "username", "validation.bad.chars");
 			}
 		}
 		

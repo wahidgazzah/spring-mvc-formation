@@ -1,13 +1,13 @@
 package com.dihaw.services.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		userRepository.updateUser(user.getId(), user.getFirstName(), user.getLastName(), Gender.fromValue(user.getGender().value()), city, 
+		userRepository.updateUser(user.getId(), user.getFirstName(), user.getUsername(), Gender.fromValue(user.getGender().value()), city, 
 				user.getEmail(), user.getPassword());
 		
 	}
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		User u = new User(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(),
+		User u = new User(user.getFirstName(), user.getUsername(), user.getEmail(), user.getPassword(),
 				Gender.fromValue(user.getGender().value()), UserStatus.fromValue(user.getStatus().value()), city);
 		
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");

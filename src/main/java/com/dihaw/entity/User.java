@@ -2,6 +2,7 @@ package com.dihaw.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -30,10 +32,10 @@ public class User {
 	@Size(min = 3, max = 10)
 	private String firstName;
 
-	@Column(name = "LAST_NAME")
+	@Column(name = "USERNAME")
 	@NotBlank
 	@Size(min = 3, max = 10)
-	private String lastName;
+	private String username;
 
 	@Column(name = "EMAIL")
 	@NotBlank
@@ -49,10 +51,6 @@ public class User {
     @Column(name = "GENDER")
     private Gender gender;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS")
-    private UserStatus status;
-    
     @ManyToOne(optional = true)
     @JoinColumn(name = "CITY_ID")
 	private City city;
@@ -63,19 +61,35 @@ public class User {
 	@Column(name = "LAST_CONNECTION")
 	private Date lastConnection;
 	
+	@Enumerated(EnumType.STRING)
+    @Column(name = "STATUS")
+    private UserStatus status;
+    
+    @Column(name = "ACCOUNT_NON_EXPIRED")
+    private int accountNonExpired;
+    
+    @Column(name = "ACCOUNT_NON_LOKED")
+    private int accountNonLocked;
+    
+    @Column(name = "CREDENTIALS_NON_EXPIRED")
+    private int credentialsNonExpired;
+    
+	@OneToOne(mappedBy="user", cascade={CascadeType.ALL})
+	private Role role;
+	
     /**
      * Protected constructor for ORM.
      */
 	public User() {
     }
-    
-    public User(String firstName, String lastName, 
+	
+    public User(String firstName, String username, 
     			String email, String password,
     			Gender gender, UserStatus status,
     			City city ){
     	
     	this.firstName = firstName;
-    	this.lastName = lastName;
+    	this.username = username;
     	this.email = email;
     	this.password = password;
     	this.gender=gender;
@@ -116,12 +130,12 @@ public class User {
 		this.firstName = firstName;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Gender getGender() {
@@ -164,5 +178,36 @@ public class User {
 		this.creationDate = creationDate;
 	}
 
+	public int getAccountNonExpired() {
+		return accountNonExpired;
+	}
+
+	public void setAccountNonExpired(int accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public int getAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	public void setAccountNonLocked(int accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public int getCredentialsNonExpired() {
+		return credentialsNonExpired;
+	}
+
+	public void setCredentialsNonExpired(int credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
 	
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 }

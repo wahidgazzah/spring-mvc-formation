@@ -95,6 +95,7 @@ div#home-title {
 	padding: 10px;
 	font-weight: bold;
 	border-radius:5px;
+	text-align: center;
 }
 
 #info
@@ -104,6 +105,7 @@ div#home-title {
 	padding: 10px;
 	font-weight: bold;
 	border-radius:5px;
+	text-align: center;
 }
 #success
 {
@@ -112,6 +114,7 @@ div#home-title {
 	padding: 10px;
 	font-weight: bold;
 	border-radius:5px;
+	text-align: center;
 }
 #warning
 {
@@ -120,6 +123,7 @@ div#home-title {
 	padding: 10px;
 	font-weight: bold;
 	border-radius:5px;
+	text-align: center;
 }
 #error
 {
@@ -128,6 +132,7 @@ div#home-title {
 	padding: 10px;
 	font-weight: bold;
 	border-radius:5px;
+	text-align: center;
 }
 
 .container {
@@ -389,7 +394,7 @@ div#home-title {
 .section li.huge input {
     background:#fcfcfc;
     border: 1px solid #ddd;
-    box-shadow: 0.1em 0.1em 0.1em #aaa;
+    box-shadow: 0.05em 0.05em 0.05em #aaa;
     color: #666;
     display: inline-block;
     font-size: 1em;
@@ -443,6 +448,29 @@ select {
     position: relative;
 }
 
+.action-login{
+	max-height: 50px; 
+	margin:3px 15px 0 0;
+}
+
+.action-logout{
+	max-height: 50px;
+	margin:3px 15px 0 0;
+}
+
+.action-login:hover{
+	max-height: 50px; 
+	margin:3px 15px 0 0; 
+	border-radius: 10px;
+	background: #00cc00; 
+}
+
+.action-logout:hover{
+	max-height: 50px;
+	margin:3px 15px 0 0; 
+	border-radius: 10px;
+	background: #ff3333; 
+}
 
 .action-green{
 	margin-left: 10px; 
@@ -450,7 +478,6 @@ select {
 	background: green; 
 	border-radius: 10px;
 }
-
 .action-red{
 	margin-left: 10px; 
 	max-height: 20px; 

@@ -17,25 +17,31 @@ public class ErrorController {
 	public final static String CONTROLLER_BASE_PATH = "/dihaw";
 	
 	private final static String ACCESS_DENIED_403_PATH = "/403";
-	private final static String GENERIC_ERROR_PATH = "/error";
-	private final static String AUTH_DENIED_PATH = "dihaw/auth/denied";
 	
-	private static String GENERIC_ERROR_VIEW= "error/generic_error";
+	private final static String AUTH_FAILURE_PATH = "/error";
+	private final static String AUTH_DENIED_PATH  = "dihaw/auth/denied";
+	
 	private static String ERROR_VIEW= "error";
+	private static String LOGIN_VIEW = "view/login/login";
+	
+	private static String ERROR_CODE = "errorCode";
 	private static String ERROR_MESSAGE = "errorMessage";
 	
-	@RequestMapping(GENERIC_ERROR_PATH)
+	@RequestMapping(AUTH_FAILURE_PATH)
 	public String showErrorView(Model model){
 		
-		logger.info("---------- Showing ERROR view");
+		logger.info("---------- Authentication failure");
+		model.addAttribute(ERROR_CODE, "Authentication");
+		model.addAttribute(ERROR_MESSAGE, "Login Failure!");
 		
-		return GENERIC_ERROR_VIEW;
+		return LOGIN_VIEW;
 	}
 	
 	@RequestMapping(AUTH_DENIED_PATH)
 	public String authAccessDenied(Model model){
 		
 		logger.info("---------- Access Denied");
+		model.addAttribute(ERROR_CODE, "Authorization");
 		model.addAttribute(ERROR_MESSAGE, "Access Denied !");
 		
 		return ERROR_VIEW;

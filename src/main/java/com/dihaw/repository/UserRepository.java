@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
+import com.dihaw.entity.UserAttempts;
 import com.dihaw.entity.UserStatus;
 
 @Repository
@@ -31,16 +32,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * 
      * @param id the id to update
      * @param firstName the user first name
-     * @param lastName the user last name
+     * @param username the user last name
      * @param gender the user gender (enum value)
      * @param city the user city
      */
     @Modifying
-    @Query("update User u set u.firstName= :firstName, u.lastName= :lastName, u.gender= :gender, u.city= :city, " +
+    @Query("update User u set u.firstName= :firstName, u.username= :username, u.gender= :gender, u.city= :city, " +
     		"u.email= :email, u.password= :password where u.id= :id")	
 	void updateUser(@Param("id") 		int id, 
 					@Param("firstName") String firstName, 
-					@Param("lastName") 	String lastName, 
+					@Param("username") 	String username, 
 					@Param("gender") 	Gender gender, 
 					@Param("city") 		City city,
 					@Param("email") 	String email, 
@@ -55,9 +56,19 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     @Query("select u from User u where u.id= :id")
     User findByid(@Param("id") int id);
-
+    
+    
+	@Query("from User u where u.username = :username or u.email = :username")
+	User findByUsername(@Param("username") String username);
+	
     @Modifying
     @Query("update User u set u.status= :status where u.id= :id")	
 	void changeStatus(@Param("id") int id, @Param("status") UserStatus userStatus);
     
+	@Query("select count(u) from User u where u.username = :username")
+	int count(@Param("username") String username);
+
+    @Modifying
+    @Query("update User u set u.accountNonLocked= :accountNonLocked where u.username= :username")	
+	void updateLocked(@Param("accountNonLocked") boolean accountNonLocked, @Param("username") String username);
 }

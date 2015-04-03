@@ -39,8 +39,9 @@
 								<form:errors path="firstName" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
-								<form:label path="lastName"><strong><spring:message code="lastName" /></strong></form:label> <form:input path="lastName" name="lastName" />
-								<form:errors path="lastName" element="label" cssClass="error"/>
+								<form:label path="username"><strong><spring:message code="username" /></strong></form:label> 
+								<form:input path="username" name="username" />
+								<form:errors path="username" element="label" cssClass="error"/>
 							</li>
 							<li class="huge">
 								<form:label path="email"><strong><spring:message code="email" /></strong></form:label> 

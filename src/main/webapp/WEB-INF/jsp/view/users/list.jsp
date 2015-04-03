@@ -29,7 +29,7 @@
 			<table class="reference">
 				<tr class="head">
 					<th><spring:message code="firstName" /></th>
-					<th><spring:message code="lastName" /></th>
+					<th><spring:message code="username" /></th>
 					<th><spring:message code="email" /></th>
 					<th><spring:message code="status" /></th>
 					<th><spring:message code="action" /></th>
@@ -39,7 +39,7 @@
 				<c:forEach var="user" items="${result.content}" >
 					<tr>
 						<td>${user.firstName}</td>
-						<td>${user.lastName}</td>
+						<td>${user.username}</td>
 						<td>${user.email}</td>
 						<c:if test="${user.status eq 'Enabled'}">
 							<td>
