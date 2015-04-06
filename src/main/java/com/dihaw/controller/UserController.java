@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +23,9 @@ import com.dihaw.dto.ResponseDTO;
 import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
+import com.dihaw.entity.User;
 import com.dihaw.entity.UserRole;
 import com.dihaw.entity.UserStatus;
-import com.dihaw.entity.User;
-import com.dihaw.exception.CustomGenericException;
 import com.dihaw.services.CityService;
 import com.dihaw.services.UserService;
 import com.dihaw.validators.ValidatorUserEntry;
@@ -104,16 +102,7 @@ public class UserController {
 		
 		return cityService.getAll();
 	}
-	
-	@ExceptionHandler(CustomGenericException.class)
-	public String handleGenericException(Model model, CustomGenericException exception) {
-		
-		model.addAttribute(ERROR_MESSAGE, exception);
-		model.addAttribute("backUrl", CONTROLLER_BASE_PATH + SELECT_USERS_SUB_PATH);
-		
-		return ERROR_VIEW;
-	}
-	
+
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	  public String showUsers(Model model,
 	            @RequestParam(value = "page", required = false, defaultValue = "0") int page,

@@ -21,5 +21,7 @@ public interface UserService {
 	public ResponseDTO registerUser(User user);
 
 	public void changeStatus(String id, UserStatus userStatus) throws UserNotFoundException;
+	
+	public User getUserByUsername(String username);
 
 }

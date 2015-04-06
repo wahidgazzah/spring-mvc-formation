@@ -103,4 +103,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.changeStatus(Integer.parseInt(id), UserStatus.fromValue(userStatus.value()));
 		
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public User getUserByUsername(String username) {
+		
+		return userRepository.findByUsername(username);
+	}
 }

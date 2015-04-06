@@ -22,5 +22,9 @@ public interface UserAttemptsRepository extends JpaRepository<UserAttempts, Inte
 
 	@Query("select ua from UserAttempts ua where ua.username = :username")
 	UserAttempts findUserAttemptsByUsername(@Param("username") String username);
+	
+	@Modifying
+	@Query("update UserAttempts ua set ua.attempts= :attempts where ua.username= :username")
+	void updateLoginFailureCount(@Param("username") String username, @Param("attempts") int attempts);
 
 }

@@ -26,6 +26,14 @@ public class UserAttempts {
 	
 	@Column(name = "LAST_MODIFIED")
 	private Date 	lastModified;
+	
+	
+	public UserAttempts(String username, int attempts, Date lastModified){
+		this.username = username;
+		this.attempts = attempts;
+		this.lastModified = lastModified;
+	}
+	
 
 	public int getId() {
 		return id;

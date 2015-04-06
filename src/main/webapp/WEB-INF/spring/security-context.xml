@@ -5,18 +5,36 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<!--  bean id="customAuthenticationFailureHandler"	class="com.dihaw.services.custom.CustomAuthenticationFailureHandler"/ -->
+	<bean id="customUserDetailsService"				class="com.dihaw.services.custom.CustomUserDetailsService" />
+	<bean id="customAuthenticationProvider"			class="com.dihaw.services.custom.CustomAuthenticationProvider" />
+
+	<bean id="customAuthenticationFailureHandler"
+                class="com.dihaw.services.custom.CustomAuthenticationFailureHandler">
+		<property name="globalErrorUrl" value="/dihaw/global" />
+        <property name="maxLoginFailureCount" value="5"/>
+    </bean>
+
 	<security:http 	auto-config="true">
 	
 		<security:access-denied-handler	error-page="/dihaw/403" />
 		
 		<security:anonymous 	granted-authority="ROLE_GUEST" username="guest"/>
 		
+		<!--  					authentication-failure-url="/dihaw/error"	
+								authentication-failure-url="customAuthenticationFailureHandler"
+								authentication-success-handler-ref="customAuthenticationSuccessHandler"
+		-->
 		<security:form-login 	login-page="/login"
 								login-processing-url="/perform-login"
 								default-target-url="/" 
-								authentication-failure-url="/dihaw/error"
+								
 								username-parameter="username"
-								password-parameter="password"/>
+								password-parameter="password"
+								
+								authentication-failure-handler-ref="customAuthenticationFailureHandler"
+  								
+								/>
 								
 		<security:logout 		logout-url="/logout" 
 								logout-success-url="/login"/>
@@ -35,39 +53,14 @@
 				users-by-username-query="select username, password, status from users where username=?"
 				authorities-by-username-query="select u1.username, u2.role from users u1, user_authorization u2 where u1.id = u2.user_id and u1.username =?"/>
 		</security:authentication-provider>
-	</security:authentication-manager
-	
-	<bean id="customUserDetailsService"
-		class="com.dihaw.services.impl.CustomUserDetailsService">
-	</bean>
-
-	<bean id="authenticationProvider">
-		<property name="userDetailsService" ref="customUserDetailsService" />
-	</bean>
-
-	<security:authentication-manager>
-	        <security:authentication-provider ref="authenticationProvider">
-	        		
-	        </security:authentication-provider>
 	</security:authentication-manager -->
-
-
-
-
-	<bean id="customUserDetailsService"
-		class="com.dihaw.services.impl.CustomUserDetailsService">
-	</bean>
-
+	
 	<security:authentication-manager>
-	        <security:authentication-provider user-service-ref="customUserDetailsService">
-	        		<!--  >security:password-encoder hash="md5"/ -->
-	        </security:authentication-provider>
+		<security:authentication-provider user-service-ref="customUserDetailsService" />
+		<security:authentication-provider ref="customAuthenticationProvider" />
 	</security:authentication-manager>
 
-
-
-
-	<bean id="dihaw403" class="com.dihaw.utils.DihawAccessDeniedHandler">
+	<bean id="dihaw403" class="com.dihaw.utils.CustomAccessDeniedHandler">
 		<property name="errorPage" value="dihaw/403" />
 	</bean>
 	

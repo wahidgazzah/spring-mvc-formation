@@ -77,6 +77,41 @@ public class User {
 	@OneToOne(mappedBy="user", cascade={CascadeType.ALL})
 	private Role role;
 	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	  @Column(name = "ACCOUNT_ENABLED")
+	  private Boolean isAccountEnabled;
+	  
+	  @Column(name = "ACCOUNT_LOKED")
+      private Boolean isAccountLocked;
+	  
+	  @Column(name = "ACCOUNT_EXPIRED")
+      private Boolean isAccountExpired;
+      
+      @Column(name = "CREDENTIALS_EXPIRED")
+      private Boolean isCredentialsExpired;
+      
+      @Column(name = "LOGIN_FAILURE_COUNT")
+      private Integer loginFailureCount;
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * Protected constructor for ORM.
      */

@@ -7,6 +7,9 @@ public class CustomGenericException extends RuntimeException {
 	private String errorCode;
 	private String errorMessage;
 	 
+	public CustomGenericException() {
+	}
+	
 	public CustomGenericException(String errorCode, String errorMessage) {
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;

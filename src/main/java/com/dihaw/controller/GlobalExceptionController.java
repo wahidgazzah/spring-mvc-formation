@@ -1,11 +1,17 @@
-package com.dihaw.exception;
+package com.dihaw.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dihaw.exception.CustomGenericException;
+
 @ControllerAdvice
 public class GlobalExceptionController {
+	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private static String GENERIC_ERROR_VIEW= "error/generic_error";
 	private static String ERROR_VIEW = "error";
@@ -14,6 +20,8 @@ public class GlobalExceptionController {
 	
 	@ExceptionHandler(CustomGenericException.class)
 	public ModelAndView handleCustomException(CustomGenericException e) {
+		
+		logger.info("------------ handleCustomException");
 		
 		ModelAndView model = new ModelAndView(ERROR_VIEW);
 		
@@ -25,6 +33,8 @@ public class GlobalExceptionController {
  
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleAllException(Exception e) {
+		
+		logger.info("------------ handleAllException");
 		
 		ModelAndView model = new ModelAndView(GENERIC_ERROR_VIEW);
  
