@@ -1,13 +1,9 @@
 package com.dihaw.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Person {
 
 	private String name, email;
 	private int age;
-	
 	
 	public Person(String name, String email, int age) {
 		this.name = name;

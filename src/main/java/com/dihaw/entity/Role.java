@@ -19,7 +19,6 @@ public class Role{
 	private Long id;
 	
 	@OneToOne
-//	@Column(name = "USER_ID")
 	@JoinColumn(name="USER_ID")
 	private User user;
 	

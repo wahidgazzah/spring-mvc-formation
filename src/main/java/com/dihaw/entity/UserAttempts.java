@@ -27,6 +27,11 @@ public class UserAttempts {
 	@Column(name = "LAST_MODIFIED")
 	private Date 	lastModified;
 	
+	/**
+     * constructor for ORM.
+     */
+	public UserAttempts(){
+	}
 	
 	public UserAttempts(String username, int attempts, Date lastModified){
 		this.username = username;

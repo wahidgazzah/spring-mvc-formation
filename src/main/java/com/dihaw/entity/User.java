@@ -63,25 +63,26 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private UserStatus status;
+    private UserStatus status;					//status: Enabled or Disabled
     
     @Column(name = "ACCOUNT_NON_EXPIRED")
-    private int accountNonExpired;
+    private int accountNonExpired;				//account not expired
     
     @Column(name = "ACCOUNT_NON_LOKED")
-    private int accountNonLocked;
+    private int accountNonLocked;				//account non locked
     
     @Column(name = "CREDENTIALS_NON_EXPIRED")
-    private int credentialsNonExpired;
+    private int credentialsNonExpired;			//credentials non expired
+    
+    /**
+     * role = 1 ->	ROLE_ADMIN + ROLE_USER	
+     * role = 2 ->	ROLE_USER
+     * role = 3 ->
+     * role = 4 ->
+     */
     
 	@OneToOne(mappedBy="user", cascade={CascadeType.ALL})
 	private Role role;
-	
-	
-	
-	
-	
-	
 	
 	
 	/*
@@ -100,19 +101,8 @@ public class User {
       @Column(name = "LOGIN_FAILURE_COUNT")
       private Integer loginFailureCount;
 	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    /**
+
+	/**
      * Protected constructor for ORM.
      */
 	public User() {

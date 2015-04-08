@@ -57,45 +57,59 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Transactional
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException{
         String username = obtainUsername(request);
+        
+        logger.info("-----onAuthenticationFailure");
+        
         User user = userService.getUserByUsername(username);
-
+        
         if (maxLoginFailureCount == null) {
             maxLoginFailureCount = 3;
         }
+        
+        logger.info("-----maxLoginFailureCount: "+maxLoginFailureCount);
+        logger.info("-----accountNonLocked: "+user.getAccountNonLocked());
 
-        if (user != null && user.getAccountNonLocked() != 1) {
+        if (user != null && user.getAccountNonLocked() == 1 ) {
             
-        	Integer failureCount = -1;
+        	Integer failureCount = 1;
         	
         	logger.info("-0--> failureCount: "+failureCount);
         	
             UserAttempts userAttempts = userAttemptsRepository.findUserAttemptsByUsername(username);
-            if(userAttempts != null)
+            if(userAttempts != null){
+            	
             	failureCount = userAttempts.getAttempts();
             
-            logger.info("-1--> failureCount: "+failureCount);
+	            failureCount++;
+	            
+	            if (failureCount >= maxLoginFailureCount) {
+	                user.setAccountNonLocked(0);
+	                userAttemptsRepository.updateLoginFailureCount(username, failureCount, new Date());
+	                try {
+						userService.updateUser(user);
+					} catch (UserNotFoundException e) {
+						
+						logger.info("---> UserNotFoundException: "+e.getMessage());
+					}
+	            } else if(failureCount < maxLoginFailureCount && failureCount >0) {
+	            	
+	            	userAttemptsRepository.updateLoginFailureCount(username, failureCount, new Date());
+	            }else if(failureCount == 0){
+	            	
+	            	UserAttempts ua = new UserAttempts(username, failureCount, new Date());
+	            	userAttemptsRepository.save(ua);
+	            }
             
-            failureCount++;
             
-            logger.info("-2--> failureCount: "+failureCount);
-            
-            if (failureCount >= maxLoginFailureCount) {
-                user.setAccountNonLocked(0);
-//                userAttemptsRepository.updateLoginFailureCount(username, failureCount);
-                try {
-					userService.updateUser(user);
-				} catch (UserNotFoundException e) {
-					
-					logger.info("---> UserNotFoundException: "+e.getMessage());
-				}
-            } else if(failureCount < maxLoginFailureCount && failureCount >0) {
-            	
-            	userAttemptsRepository.updateLoginFailureCount(username, failureCount);
-            }else if(failureCount == 0){
-            	
+            }else{
             	UserAttempts ua = new UserAttempts(username, failureCount, new Date());
             	userAttemptsRepository.save(ua);
             }
+            
+            logger.info("-1--> failureCount: "+failureCount);
+            
+            
+
         }
 
         if (exception instanceof DisabledException) {

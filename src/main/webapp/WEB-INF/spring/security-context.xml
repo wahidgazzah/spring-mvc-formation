@@ -9,11 +9,12 @@
 	<bean id="customUserDetailsService"				class="com.dihaw.services.custom.CustomUserDetailsService" />
 	<bean id="customAuthenticationProvider"			class="com.dihaw.services.custom.CustomAuthenticationProvider" />
 
-	<bean id="customAuthenticationFailureHandler"
-                class="com.dihaw.services.custom.CustomAuthenticationFailureHandler">
+	<bean id="customAuthenticationFailureHandler" class="com.dihaw.services.custom.CustomAuthenticationFailureHandler">
 		<property name="globalErrorUrl" value="/dihaw/global" />
-        <property name="maxLoginFailureCount" value="5"/>
+        <property name="maxLoginFailureCount" value="3"/>
     </bean>
+    
+	<bean id="customAuthenticationSuccessHandler" class="com.dihaw.services.custom.CustomAuthenticationSuccessHandler" />
 
 	<security:http 	auto-config="true">
 	
@@ -32,6 +33,7 @@
 								username-parameter="username"
 								password-parameter="password"
 								
+								authentication-success-handler-ref="customAuthenticationSuccessHandler"
 								authentication-failure-handler-ref="customAuthenticationFailureHandler"
   								
 								/>
