@@ -109,4 +109,31 @@ public class UserServiceImpl implements UserService {
 		
 		return userRepository.findByUsername(username);
 	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeAccountExpired(String id, String value)
+			throws UserNotFoundException {
+		value = (value.equals("1") ) ? "0" : "1";
+		
+		userRepository.changeAccountExpired(Integer.parseInt(id), Integer.parseInt(value));
+		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeAccountLocked(String id, String value)
+			throws UserNotFoundException {
+		value = (value.equals("1") ) ? "0" : "1";
+		
+		userRepository.changeAccountLocked(Integer.parseInt(id), Integer.parseInt(value));
+		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void changeCredentialsExpired(String id, String value)
+			throws UserNotFoundException {
+		value = (value.equals("1") ) ? "0" : "1";
+		
+		userRepository.changeCredentialsExpired(Integer.parseInt(id), Integer.parseInt(value));
+		
+	}
 }

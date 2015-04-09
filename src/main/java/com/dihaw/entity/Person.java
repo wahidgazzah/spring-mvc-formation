@@ -1,7 +1,10 @@
 package com.dihaw.entity;
 
-public class Person {
+import java.io.Serializable;
 
+public class Person implements Serializable{
+	private static final long serialVersionUID = 2373562273475783733L;
+	
 	private String name, email;
 	private int age;
 	

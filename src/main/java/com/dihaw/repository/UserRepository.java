@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
-import com.dihaw.entity.UserAttempts;
 import com.dihaw.entity.UserStatus;
 
 @Repository
@@ -57,7 +56,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u where u.id= :id")
     User findByid(@Param("id") int id);
     
-    
 	@Query("from User u where u.username = :username or u.email = :username")
 	User findByUsername(@Param("username") String username);
 	
@@ -71,9 +69,20 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Modifying
     @Query("update User u set u.accountNonLocked= :accountNonLocked where u.username= :username")	
 	void updateLocked(@Param("accountNonLocked") boolean accountNonLocked, @Param("username") String username);
-
     
     @Query("from User u where u.username = :username or u.email = :username and u.password= :password")
 	User findByUsernameAndPAssword(@Param("username") String username, @Param("password") String password);
+    
+    @Modifying
+    @Query("update User u set u.accountNonExpired= :accountNonExpired where u.id= :id")	
+	void changeAccountExpired(@Param("id") int id, @Param("accountNonExpired") int accountNonExpired);
+
+    @Modifying
+    @Query("update User u set u.accountNonLocked= :accountNonLocked where u.id= :id")	
+	void changeAccountLocked(@Param("id") int id, @Param("accountNonLocked") int accountNonLocked);
+
+    @Modifying
+    @Query("update User u set u.credentialsNonExpired= :credentialsNonExpired where u.id= :id")	
+	void changeCredentialsExpired(@Param("id") int id, @Param("credentialsNonExpired") int credentialsNonExpired);
     
 }

@@ -27,12 +27,15 @@ public class LoginController {
 	public final static String CONTROLLER_BASE_PATH = "/login";
     private static String LOGIN_VIEW = "view/login/login";
     
-//    public final static String DIHAW_PATH = "/dihaw";
-    
     @RequestMapping()
-    public String login(Model model){
+    public String login(Model model, @RequestParam("code") String code){
     	
     	logger.info("----------> Show login view");
+    	
+    	if(code != null){
+    		model.addAttribute(ERROR_CODE, "Authentication Error");
+    		model.addAttribute(ERROR_MESSAGE, code);
+    	}
     	
     	return LOGIN_VIEW;
     	
@@ -43,23 +46,8 @@ public class LoginController {
     	
     	logger.info("----------> logout request");
     	
-    	return login(model);
+    	return login(model, null);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 	@RequestMapping( AUTH_FAILURE_PATH)
 	public String showErrorView(Model model){
@@ -71,7 +59,7 @@ public class LoginController {
 		
 		return LOGIN_VIEW;
 	}
-	
+/*	
 	@RequestMapping( "/auth" )
 	public String authenticationFailureView(Model model, @RequestParam("error") String error){
 		
@@ -82,7 +70,7 @@ public class LoginController {
 		
 		return LOGIN_VIEW;
 	}
-	
+	*/
 	@RequestMapping( AUTH_DENIED_PATH)
 	public String authAccessDenied(Model model){
 		

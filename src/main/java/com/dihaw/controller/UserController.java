@@ -284,4 +284,70 @@ public class UserController {
 		
 		return "redirect:/users/list";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping("/changeAccountExpired")
+	public String changeAccountExpired(Model model, 
+			@RequestParam String id, @RequestParam String value) {
+		
+		logger.info("---------- RequestMapping: /changeAccountExpired");
+		
+		try {
+			userService.changeAccountExpired(id, value);
+		} catch (UserNotFoundException e) {
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
+		
+		return "redirect:/users/edit?id="+id;
+	}
+	
+	@RequestMapping("/changeAccountLocked")
+	public String changeAccountLocked(Model model, 
+			@RequestParam String id, @RequestParam String value) {
+		
+		logger.info("---------- RequestMapping: /changeAccountLocked");
+		
+		try {
+			userService.changeAccountLocked(id, value);
+		} catch (UserNotFoundException e) {
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
+		
+		return "redirect:/users/edit?id="+id;
+	}
+	
+	@RequestMapping("/changeCredentialsExpired")
+	public String changeCredentialsExpired(Model model, 
+			@RequestParam String id, @RequestParam String value) {
+		
+		logger.info("---------- RequestMapping: /changeCredentialsExpired");
+		
+		try {
+			userService.changeCredentialsExpired(id, value);
+		} catch (UserNotFoundException e) {
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
+		
+		return "redirect:/users/edit?id="+id;
+	}
 }

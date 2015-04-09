@@ -16,6 +16,8 @@ import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,15 +33,15 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 	public static final String SPRING_SECURITY_FORM_USERNAME_KEY = "username";
 	
     String customException = "";
+    private Integer maxLoginFailureCount;
+    private String defaultFailureUrl;
+    Date lastModified = new Date();
 
     @Autowired
     private UserService userService;
     
     @Autowired
     private UserAttemptsRepository userAttemptsRepository;
-
-    private Integer maxLoginFailureCount;
-    private String globalErrorUrl;
 
     public void setMaxLoginFailureCount(Integer maxLoginFailureCount) {
         this.maxLoginFailureCount = maxLoginFailureCount;
@@ -49,8 +51,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         return request.getParameter(SPRING_SECURITY_FORM_USERNAME_KEY);
     }
     
-    public void setglobalErrorUrl(String globalErrorUrl) {
-        this.globalErrorUrl = globalErrorUrl;
+    public void setDefaultFailureUrl(String defaultFailureUrl) {
+        this.defaultFailureUrl = defaultFailureUrl;
     }
 
     @Override
@@ -65,9 +67,20 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         if (maxLoginFailureCount == null) {
             maxLoginFailureCount = 3;
         }
-        
+        if(defaultFailureUrl == null){
+        	defaultFailureUrl = "/login?code=";
+        }
+        	
         logger.info("-----maxLoginFailureCount: "+maxLoginFailureCount);
         logger.info("-----accountNonLocked: "+user.getAccountNonLocked());
+        
+        if (user != null && user.getAccountNonLocked() == 0 ) {
+        	UserAttempts userAttempts = userAttemptsRepository.findUserAttemptsByUsername(username);
+        	
+        	lastModified = userAttempts.getLastModified();
+        	
+        }
+        
 
         if (user != null && user.getAccountNonLocked() == 1 ) {
             
@@ -107,32 +120,24 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             }
             
             logger.info("-1--> failureCount: "+failureCount);
-            
-            
 
-        }
-
-        if (exception instanceof DisabledException) {
-        	customException = "disabled";
-            super.setDefaultFailureUrl(globalErrorUrl);
-        } else if (exception instanceof AccountExpiredException) {
-        	customException = "accountExpired";
-            super.setDefaultFailureUrl(globalErrorUrl);
-        } else if (exception instanceof LockedException) {
-        	customException = "locked";
-            super.setDefaultFailureUrl(globalErrorUrl);
-        } else if (exception instanceof CredentialsExpiredException) {
-        	customException = "credentialsExpired";
-            super.setDefaultFailureUrl(globalErrorUrl);
-        }else if (exception instanceof BadCredentialsException) {
-        	customException = "badCredentials";
-            super.setDefaultFailureUrl(globalErrorUrl);
-        } else {
-        	customException = "auther";
-            super.setDefaultFailureUrl(globalErrorUrl);
         }
         
-        response.sendRedirect(request.getContextPath() + "/login/auth?error=" +customException);
+        if (exception instanceof DisabledException) {
+        	customException = "disabled";
+        } else if (exception instanceof AccountExpiredException) {
+        	customException = "accountExpired";
+        } else if (exception instanceof LockedException) {
+        	customException = "locked";
+        } else if (exception instanceof CredentialsExpiredException) {
+        	customException = "credentialsExpired";
+        }else if (exception instanceof BadCredentialsException) {
+        	customException = "badCredentials";
+        } else {
+        	customException = "others";
+        }
+        
+        response.sendRedirect(request.getContextPath() + defaultFailureUrl +customException);
         
     }
 }

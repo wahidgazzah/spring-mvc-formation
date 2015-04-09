@@ -24,4 +24,10 @@ public interface UserService {
 	
 	public User getUserByUsername(String username);
 
+	public void changeAccountExpired(String id, String value) throws UserNotFoundException;
+
+	public void changeAccountLocked(String id, String value) throws UserNotFoundException;
+
+	public void changeCredentialsExpired(String id, String value) throws UserNotFoundException;
+
 }

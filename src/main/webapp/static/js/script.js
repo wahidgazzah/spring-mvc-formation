@@ -6,3 +6,5 @@ function switchDetails(userId){
 function closeDetails(){
 	document.getElementById("dialog-container").style.display = "none";
 }
+
+

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<spring:url value="/" var="helloUrl" />
+<spring:url value="/hello" var="helloUrl" />
 <spring:url value="/about" var="aboutUrl" />
 <spring:url value="/persons/list" var="personListUrl"  />
 <spring:url value="/users/list" var="userListUrl"  />
@@ -13,14 +13,14 @@
  
 <div class="menu">
 
-		<sec:authorize access="isAuthenticated()">
-			<div class="text">
-				<p>
-					<c:set var="username"><sec:authentication property="principal.username" /></c:set>
-					<spring:message code="welcome" arguments="${username}" /> 
-				</p>
-			</div>
-		</sec:authorize>
+	<sec:authorize access="isAuthenticated()">
+		<div class="text">
+			<p>
+				<c:set var="username"><sec:authentication property="principal.username" /></c:set>
+				<spring:message code="welcome" arguments="${username}" /> 
+			</p>
+		</div>
+	</sec:authorize>
 
 	<ul>
 		<li ${fn:contains(pageContext.request.requestURI, 'about') ? 'class="selected"' : ''}>

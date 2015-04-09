@@ -25,56 +25,56 @@
 			        </c:forEach>
 			    </ul>
 			</div>
-				
-			<table class="reference">
-				<tr class="head">
-					<th><spring:message code="firstName" /></th>
-					<th><spring:message code="username" /></th>
-					<th><spring:message code="email" /></th>
-					<th><spring:message code="status" /></th>
-					<th><spring:message code="action" /></th>
-					<th><spring:message code="edit" /></th>
-					<th><spring:message code="delete" /></th>
-				</tr>
+			
+			<div class="section">
+				<ul>
+					<li class="section-head-30-left"><spring:message code="email" /></li>
+					<li class="section-head-30"><spring:message code="lastconnection" /></li>
+					<li class="section-head-10"><spring:message code="action" /></li>
+					<li class="section-head-10"><spring:message code="edit" /></li>
+					<li class="section-head-10"><spring:message code="delete" /></li>
+					<li class="section-head-10-right"><spring:message code="notification" /></li>	
+				</ul>	
 				<c:forEach var="user" items="${result.content}" >
-					<tr>
-						<td>${user.firstName}</td>
-						<td>${user.username}</td>
-						<td>${user.email}</td>
-						<c:if test="${user.status eq 'Enabled'}">
-							<td>
-								<div id="user-connect" ></div>
-							</td>
-							<td>
+					<ul class="section-body">
+						<li class="section-body-30">${user.email}</li>
+						
+						<li class="section-body-30">${user.lastConnection}</li>
+						
+						<li class="section-body-10">
+							<c:if test="${user.status eq 'Enabled'}">
 								<a href="changeStatus?id=${user.id}&status=${user.status}" >
 									<img class="action-red" src='<c:url value="/static/images/action/action.png" />'>
 								</a>
-							</td>
-						</c:if>
-						<c:if test="${user.status eq 'Disabled'}">
-							<td>
-								<div id="user-block" ></div>
-							</td>
-							<td>
+							</c:if>
+							<c:if test="${user.status eq 'Disabled'}">
 								<a href="changeStatus?id=${user.id}&status=${user.status}" >
 									<img class="action-green" src='<c:url value="/static/images/action/action.png" />'>
 								</a>
-							</td>						
-						</c:if>
-						<td class="edit">	
+							</c:if>
+						</li>
+						
+						<li class="section-body-10">
 							<a href="edit?id=${user.id}" >
-								<img src="<c:url value="/static/images/action/edit-icon.png" />" style="max-height: 22px;">
-							</a>	
-						</td>	
-						<td class="delete">
+								<img src="<c:url value="/static/images/action/edit-icon.png" />" style="max-height: 22px; margin-top: 20px;">
+							</a>						
+						</li>
+						
+						<li class="section-body-10">
 							<a id="${stat.index}" href="#delete" class="sets" onclick="switchDetails(${user.id})">
-								<img src="<c:url value="/static/images/action/delete-icon.png" />" style="max-height: 22px;">
-							</a>
-						</td>
-					</tr>
+								<img src="<c:url value="/static/images/action/delete-icon.png" />" style="max-height: 22px; margin-top: 20px;">
+							</a>						
+						</li>
+						
+						<li class="section-body-10">
+							<c:set var="cuont" value="${3 - (user.accountNonExpired + user.accountNonLocked + user.credentialsNonExpired)} "></c:set>
+							<div class="badge">${cuont}</div>
+						</li>
+						
+					</ul>
 				</c:forEach>
-			</table>
-				
+			</div>
+					
 			<div class="btn-div">
 				<a href="add" class="btn"><spring:message code="add-new-user" /></a>
 			</div>
@@ -93,6 +93,6 @@
 				</div>
 			</div>
 		</div>
-			
+		
     </tiles:putAttribute>
 </tiles:insertDefinition>

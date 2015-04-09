@@ -31,7 +31,7 @@
 				</c:choose>				
 			
 				<form:form method="post" action="/users/do-edit" modelAttribute="user">
-					<div class="user">
+					<div class="section">
 						<ul>
 							<li class="huge">
 								<form:label path="firstName"><strong><spring:message code="firstName" /></strong></form:label> 
@@ -87,6 +87,64 @@
 								</spring:bind>
 								<form:errors path="city" element="label" cssClass="error"/>
 							</li>
+							
+							
+							
+							
+							
+							
+							<li class="huge">
+								<c:if test="${user.accountNonExpired eq 1}"><div id="user-connect" >
+									<a href="changeAccountExpired?id=${user.id}&value=${user.accountNonExpired}" >
+										<span><spring:message code="changeAccountExpired" /></span>
+									</a>
+								</div></c:if>
+								<c:if test="${user.accountNonExpired eq 0}"><div id="user-block" >
+									<a href="changeAccountExpired?id=${user.id}&value=${user.accountNonExpired}" >
+										<span><spring:message code="changeAccountExpired" /></span>
+									</a>
+								</div></c:if>
+								
+								<c:if test="${user.accountNonLocked eq 1}"><div id="user-connect" >
+									<a href="changeAccountLocked?id=${user.id}&value=${user.accountNonLocked}" >
+										<span><spring:message code="changeAccountLocked" /></span>
+									</a>
+								</div></c:if>
+								<c:if test="${user.accountNonLocked eq 0}"><div id="user-block" >
+									<a href="changeAccountLocked?id=${user.id}&value=${user.accountNonLocked}" >
+										<span><spring:message code="changeAccountLocked" /></span>
+									</a>
+								</div></c:if>
+								
+								<c:if test="${user.credentialsNonExpired eq 1}"><div id="user-connect" >
+									<a href="changeCredentialsExpired?id=${user.id}&value=${user.credentialsNonExpired}" >
+										<span><spring:message code="changeCredentialsExpired" /></span>
+									</a>
+								</div></c:if>	
+								<c:if test="${user.credentialsNonExpired eq 0}"><div id="user-block" >
+									<a href="changeCredentialsExpired?id=${user.id}&value=${user.credentialsNonExpired}" >
+										<span><spring:message code="changeCredentialsExpired" /></span>
+									</a>
+								</div></c:if>							
+							</li>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
 						</ul>
 					</div>
 					<ul>

@@ -14,13 +14,12 @@
 				</h3>
 			</div>
 			<div class="section">
-				
 				<c:choose>
-					<c:when test="${not empty errorCode}">
+					<c:when test="${not empty errorCode and errorMessage ne 'null'}">
 						<div id="main-message">
 							<div id="form-container">
 								<div id="error">
-									<spring:message code="${errorMessage}" />
+									<spring:message code="${errorCode}" /> : <spring:message code="${errorMessage}" />
 								</div>
 							</div>
 						</div>

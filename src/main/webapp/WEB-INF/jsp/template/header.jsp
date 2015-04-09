@@ -10,22 +10,14 @@
 	</div>
 	<div class="user-area">
 		<sec:authorize access="isAnonymous()">
-				<%-- div class="login">
-					<a href="<spring:url value="/login"></spring:url>"><spring:message code="menu.login" /></a >
-				</div--%>
-				<a href="<spring:url value="/login"></spring:url>" >
+				<a href="<spring:url value="/login?code=null"></spring:url>" >
 					<img class="action-login" src='<c:url value="/static/images/action/login.png" />'>
 				</a>
-				
-			
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
-			<%-- div class="logout"><a href="<spring:url value="/logout"></spring:url>"><spring:message code="menu.logout" /></a></div--%>
-				
 				<a href="<spring:url value="/logout"></spring:url>" >
 					<img class="action-logout" src='<c:url value="/static/images/action/logout.png" />'>
 				</a>
-				
 		</sec:authorize>
 	</div>
 	<hr>
