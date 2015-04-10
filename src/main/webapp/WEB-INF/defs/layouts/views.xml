@@ -8,8 +8,4 @@
 	    <put-attribute name="body"	value="/WEB-INF/jsp/index.jsp" />
 	</definition>
 
-	<definition name="personList" extends="defaultTemplate">
-	    <put-attribute name="body"	value="/WEB-INF/jsp/personList.jsp" />
-	</definition>
-	
 </tiles-definitions>

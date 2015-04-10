@@ -22,6 +22,8 @@ public interface UserService {
 
 	public void changeStatus(String id, UserStatus userStatus) throws UserNotFoundException;
 	
+	public void updateLastConnection( String username) throws UserNotFoundException;
+	
 	public User getUserByUsername(String username);
 
 	public void changeAccountExpired(String id, String value) throws UserNotFoundException;

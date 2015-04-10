@@ -28,7 +28,6 @@ public interface UserAttemptsRepository extends JpaRepository<UserAttempts, Inte
 	void updateLoginFailureCount(	@Param("username") String username, 
 									@Param("attempts") int attempts, 
 									@Param("lastModified") Date lastModified);
-	
 	@Modifying
 	@Query("delete from UserAttempts ua where ua.username= :username")
 	void deleteLoginFailureCount(@Param("username") String username);

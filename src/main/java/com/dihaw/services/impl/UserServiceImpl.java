@@ -1,13 +1,16 @@
 package com.dihaw.services.impl;
 
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +20,12 @@ import com.dihaw.dto.ResponseDTO;
 import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
+import com.dihaw.entity.Role;
 import com.dihaw.entity.User;
+import com.dihaw.entity.UserRole;
 import com.dihaw.entity.UserStatus;
 import com.dihaw.repository.CityRepository;
+import com.dihaw.repository.RoleRepository;
 import com.dihaw.repository.UserRepository;
 import com.dihaw.services.UserService;
 
@@ -30,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
 	
 	@Autowired
 	CityRepository cityRepository;
@@ -71,12 +80,25 @@ public class UserServiceImpl implements UserService {
 		
 		City city = cityRepository.findByCityName(user.getCity().getCityName());
 		
-		User u = new User(user.getFirstName(), user.getUsername(), user.getEmail(), user.getPassword(),
-				Gender.fromValue(user.getGender().value()), UserStatus.fromValue(user.getStatus().value()), city);
+		 Date date = new Date();
+		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date today = Calendar.getInstance().getTime();
+		 String reportDate = df.format(today);
+		 
+		 try {
+			date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(reportDate);
+		} catch (ParseException e) {
+			logger.info("-----ParseException: "+e.getMessage());
+		}
 		
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//		Calendar now = Calendar.getInstance();
-//		user.setCreationDate(sdf.format(now.getTime()));
+		User u = new User(user.getFirstName(), user.getUsername(), user.getEmail(), user.getPassword(),
+				Gender.fromValue(user.getGender().value()), UserStatus.fromValue(user.getStatus().value()), city, date);
+		
+		u.setUserRole(user.getUserRole());
+		
+		u.setAccountNonExpired(1);
+		u.setAccountNonLocked(1);
+		u.setCredentialsNonExpired(1);
 		
 		User userToAdd = userRepository.save(u);
 		
@@ -85,6 +107,10 @@ public class UserServiceImpl implements UserService {
 		if(userToAdd == null){
 			response.setStatus(ResponseStatusType.WRONG_DATA);
 		}else{
+			
+			UserRole userRole = new UserRole(userToAdd, 2); // 2: ROLE_USER
+			roleRepository.save(userRole);
+			
 			response.setStatus(ResponseStatusType.SUCCESS);
 		}
 		
@@ -134,6 +160,25 @@ public class UserServiceImpl implements UserService {
 		value = (value.equals("1") ) ? "0" : "1";
 		
 		userRepository.changeCredentialsExpired(Integer.parseInt(id), Integer.parseInt(value));
+		
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void updateLastConnection(String username)
+			throws UserNotFoundException {
+			
+		 Date date = new Date();
+		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		 Date today = Calendar.getInstance().getTime();
+		 String reportDate = df.format(today);
+		 
+		 try {
+			date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(reportDate);
+		} catch (ParseException e) {
+			logger.info("-----ParseException: "+e.getMessage());
+		}
+		
+		userRepository.updateLastConnection(username, date);
 		
 	}
 }

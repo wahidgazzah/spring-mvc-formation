@@ -2,6 +2,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<spring:message code="timePattern" var="timePattern" />
+<spring:message code="datePattern" var="datePattern" />
 
 <tiles:insertDefinition name="defaultTemplate">
    <tiles:putAttribute name="body">
@@ -68,33 +72,24 @@
 								</div>
 							</li>
 							
-							
-							
-							<%-- li class="gender">
-								<label><strong><spring:message code="role" /></strong></label>
-								
-								<spring:bind>
-									<select name="role">
-										<c:forEach items='${roleList}' var='role'>
-											<option value="${role.value}">${role.value}</option>
+							<li class="huge">
+								<form:label path="userRole"><strong><spring:message code="userRole" /></strong></form:label> 
+								<spring:bind path="userRole">
+									<select name="userRole">
+										<c:forEach items="${roleList}" var="item">
+											<option value="${item}">
+												<spring:message code="user-role.${item}" />
+											</option>
 										</c:forEach>
 									</select>
 								</spring:bind>								
-								
-							</li--%>
-							
-							
-							
-							
-							
-							
-							
+							</li>
 							
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label> 
 								<spring:bind path="city">
 									<select name="city">
-										<c:forEach items='${cityList}' var='city'>
+										<c:forEach items="${cityList}" var="city">
 											<option value="${city.cityName}">${city.cityName}</option>
 										</c:forEach>
 									</select>

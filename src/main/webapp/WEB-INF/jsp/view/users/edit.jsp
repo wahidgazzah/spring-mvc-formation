@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<spring:message code="timePattern" var="timePattern" />
+<spring:message code="datePattern" var="datePattern" />
 
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
@@ -93,7 +97,7 @@
 							
 							
 							
-							<li class="huge">
+							<%--li class="huge">
 								<c:if test="${user.accountNonExpired eq 1}"><div id="user-connect" >
 									<a href="changeAccountExpired?id=${user.id}&value=${user.accountNonExpired}" >
 										<span><spring:message code="changeAccountExpired" /></span>
@@ -126,7 +130,7 @@
 										<span><spring:message code="changeCredentialsExpired" /></span>
 									</a>
 								</div></c:if>							
-							</li>
+							</li --%>
 							
 							
 							

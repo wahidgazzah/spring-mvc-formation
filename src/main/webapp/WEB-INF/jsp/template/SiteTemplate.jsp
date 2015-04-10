@@ -11,7 +11,7 @@
 		<script type="text/javascript" src="<c:url value="/static/js/script.js" />"></script>
 	</head>
 	<body>
-		<div class="container" style="border: #C1C1C1 solid 1px; border-radius:10px; margin: 30px auto;">
+		<div class="container">
 			<!-- Header -->
 			<tiles:insertAttribute name="header" />
 			<!-- Menu Page -->

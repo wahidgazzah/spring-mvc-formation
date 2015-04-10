@@ -49,13 +49,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             
             try {
 
-//    			Authentication auth = super.authenticate(authentication);
-
-    			// if reach here, means login success, else exception will be thrown
-    			// reset the user_attempts
     			userAttemptsRepository.resetFailAttempts(authentication.getName());
-
-//    			return auth;
 
     		} catch (BadCredentialsException e) {
 
@@ -82,8 +76,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
             return null;
         }
 		  
-		
-//		return UsernamePasswordAuthenticationToken(user, null, user.getRole().getRole()) ;
 
 	}
 
@@ -109,7 +101,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 
 			if (user.getAttempts() + 1 >= MAX_ATTEMPTS) {
 				// locked user
-				userRepository.updateLocked(false, username);
+				userRepository.changeAccountLocked(user.getId(), 0);
 				// throw exception
 				throw new LockedException("User Account is locked!");
 			}

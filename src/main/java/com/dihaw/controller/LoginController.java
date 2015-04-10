@@ -28,7 +28,7 @@ public class LoginController {
     private static String LOGIN_VIEW = "view/login/login";
     
     @RequestMapping()
-    public String login(Model model, @RequestParam("code") String code){
+    public String login(Model model, @RequestParam(value="code", required = false, defaultValue = "null") String code){
     	
     	logger.info("----------> Show login view");
     	
@@ -59,18 +59,7 @@ public class LoginController {
 		
 		return LOGIN_VIEW;
 	}
-/*	
-	@RequestMapping( "/auth" )
-	public String authenticationFailureView(Model model, @RequestParam("error") String error){
-		
-		logger.info("----------> Authentication failure");
-		
-		model.addAttribute(ERROR_CODE, "Authentication");
-		model.addAttribute(ERROR_MESSAGE, error);
-		
-		return LOGIN_VIEW;
-	}
-	*/
+
 	@RequestMapping( AUTH_DENIED_PATH)
 	public String authAccessDenied(Model model){
 		
@@ -109,16 +98,4 @@ public class LoginController {
 
 	}    
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }

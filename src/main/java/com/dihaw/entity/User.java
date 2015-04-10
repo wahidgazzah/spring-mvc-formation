@@ -16,6 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -59,6 +61,7 @@ public class User {
 	private Date creationDate;
 	
 	@Column(name = "LAST_CONNECTION")
+	@Generated(GenerationTime.ALWAYS)
 	private Date lastConnection;
 	
 	@Enumerated(EnumType.STRING)
@@ -78,29 +81,10 @@ public class User {
      * role = 1 ->	ROLE_ADMIN + ROLE_USER	
      * role = 2 ->	ROLE_USER
      * role = 3 ->
-     * role = 4 ->
      */
     
 	@OneToOne(mappedBy="user", cascade={CascadeType.ALL})
-	private Role role;
-	
-	
-	/*
-	  @Column(name = "ACCOUNT_ENABLED")
-	  private Boolean isAccountEnabled;
-	  
-	  @Column(name = "ACCOUNT_LOKED")
-      private Boolean isAccountLocked;
-	  
-	  @Column(name = "ACCOUNT_EXPIRED")
-      private Boolean isAccountExpired;
-      
-      @Column(name = "CREDENTIALS_EXPIRED")
-      private Boolean isCredentialsExpired;
-      
-      @Column(name = "LOGIN_FAILURE_COUNT")
-      private Integer loginFailureCount;
-	*/
+	private UserRole userRole;
 
 	/**
      * Protected constructor for ORM.
@@ -111,7 +95,7 @@ public class User {
     public User(String firstName, String username, 
     			String email, String password,
     			Gender gender, UserStatus status,
-    			City city ){
+    			City city, Date creationDate ){
     	
     	this.firstName = firstName;
     	this.username = username;
@@ -120,6 +104,7 @@ public class User {
     	this.gender=gender;
     	this.status = status;
     	this.city=city;
+    	this.creationDate=creationDate;
     	
     }
 
@@ -227,12 +212,12 @@ public class User {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 	
-	public Role getRole() {
-		return role;
+	public UserRole getUserRole() {
+		return userRole;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setUserRole(UserRole role) {
+		this.userRole = role;
 	}
 
 }

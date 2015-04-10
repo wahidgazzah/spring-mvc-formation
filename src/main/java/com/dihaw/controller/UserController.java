@@ -24,7 +24,7 @@ import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
-import com.dihaw.entity.UserRole;
+import com.dihaw.entity.Role;
 import com.dihaw.entity.UserStatus;
 import com.dihaw.services.CityService;
 import com.dihaw.services.UserService;
@@ -51,6 +51,7 @@ public class UserController {
 	private static String ADD_VIEW 	= "view/users/add";
 	private static String LIST_VIEW = "view/users/list";
 	private static String EDIT_VIEW = "view/users/edit";
+	private static String EDIT_STAUTS_VIEW = "view/users/editStatus";
 	private static String ERROR_VIEW= "error/generic_error";
 	
 	@Autowired
@@ -88,12 +89,12 @@ public class UserController {
 	}
 	
 	@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE)
-	public List<String> rolesModelAttribute(){
+	public List<Integer> rolesModelAttribute(){
 		
-		List<String> roles = new ArrayList<String>();
-		roles.add(UserRole.ROLE_ADMIN.value());
-		roles.add(UserRole.ROLE_USER.value());
-
+		List<Integer> roles = new ArrayList<Integer>();
+		roles.add(1);
+		roles.add(2);
+		
 		return roles;
 	}
 	
@@ -122,7 +123,7 @@ public class UserController {
 			@ModelAttribute(GENDER_MODEL_ATTRIBUTE) List<String> genderList,
 			@ModelAttribute(USER_STATUS_MODEL_ATTRIBUTE) List<String> userSatusList,
 			@ModelAttribute(CITY_MODEL_ATTRIBUTE) List<String> cityList,
-			@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE) List<String> userRoles,
+			@ModelAttribute(USER_ROLES_MODEL_ATTRIBUTE) List<Integer> userRoles,
 			@ModelAttribute(USER_FORM_ATTRIBUTE) User user, BindingResult bindingResult) {
 		
 		logger.info("---------- Showing add user view");
@@ -181,6 +182,27 @@ public class UserController {
 		}
 		
 		return ADD_VIEW;
+	}
+	
+	@RequestMapping(value="/editStatus", method = RequestMethod.GET)
+	public String editUserStatus(Model model, ModelMap modelMap, @RequestParam String id,
+			@ModelAttribute(USER_FORM_ATTRIBUTE) User user) throws UserNotFoundException{
+		
+		logger.info("---------- Showing edit user view");
+		
+		try{
+			user = userService.getUserById(id);
+		}catch(UserNotFoundException e){
+			
+			model.addAttribute(ERROR_MESSAGE, e.getMessage());
+			
+			return ERROR_VIEW;
+		}
+		
+		model.addAttribute(USER_FORM_ATTRIBUTE, user);
+		
+		return EDIT_STAUTS_VIEW;
+
 	}
 
 	@RequestMapping(value="/edit", method = RequestMethod.GET)
@@ -285,18 +307,6 @@ public class UserController {
 		return "redirect:/users/list";
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping("/changeAccountExpired")
 	public String changeAccountExpired(Model model, 
 			@RequestParam String id, @RequestParam String value) {
@@ -312,7 +322,7 @@ public class UserController {
 			return ERROR_VIEW;
 		}
 		
-		return "redirect:/users/edit?id="+id;
+		return "redirect:/users/editStatus?id="+id;
 	}
 	
 	@RequestMapping("/changeAccountLocked")
@@ -330,7 +340,7 @@ public class UserController {
 			return ERROR_VIEW;
 		}
 		
-		return "redirect:/users/edit?id="+id;
+		return "redirect:/users/editStatus?id="+id;
 	}
 	
 	@RequestMapping("/changeCredentialsExpired")
@@ -348,6 +358,6 @@ public class UserController {
 			return ERROR_VIEW;
 		}
 		
-		return "redirect:/users/edit?id="+id;
+		return "redirect:/users/editStatus?id="+id;
 	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Ven 03 Avril 2015 à 16:07
+-- Généré le : Ven 10 Avril 2015 à 15:02
 -- Version du serveur: 5.5.8
 -- Version de PHP: 5.3.5
 
@@ -50,7 +50,7 @@ INSERT INTO `city` (`CITY_ID`, `CITY_NAME`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `role` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `role` int(11) DEFAULT NULL,
   `user_id` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -79,8 +79,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `PASSWORD` varchar(50) NOT NULL,
   `FIRST_NAME` varchar(10) NOT NULL,
   `USERNAME` varchar(10) NOT NULL,
-  `LAST_CONNECTION` date DEFAULT NULL,
-  `CREATION_DATE` date DEFAULT NULL,
+  `LAST_CONNECTION` datetime DEFAULT NULL,
+  `CREATION_DATE` datetime DEFAULT NULL,
   `GENDER` varchar(10) NOT NULL,
   `CITY_ID` int(10) NOT NULL,
   `STATUS` varchar(10) NOT NULL,
@@ -89,17 +89,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `CREDENTIALS_NON_EXPIRED` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ID`),
   KEY `CITY_ID` (`CITY_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`ID`, `EMAIL`, `PASSWORD`, `FIRST_NAME`, `USERNAME`, `LAST_CONNECTION`, `CREATION_DATE`, `GENDER`, `CITY_ID`, `STATUS`, `ACCOUNT_NON_EXPIRED`, `ACCOUNT_NON_LOKED`, `CREDENTIALS_NON_EXPIRED`) VALUES
-(1, 'admin@email.com', 'password', 'admin', 'admin', '2015-03-25', '2015-03-26', 'Male', 4, 'Enabled', 1, 1, 1),
-(2, 'user@email.com', 'password', 'user', 'user', '2015-03-26', '2015-03-30', 'Male', 3, 'Enabled', 1, 1, 1),
-(3, 'wahid@email.com', 'password', 'wahid', 'wahid', '2015-03-27', NULL, 'Male', 4, 'Enabled', 1, 1, 1),
-(6, 'test@email.com', 'password', 'test', 'wahid', NULL, NULL, 'Female', 4, 'Disabled', 0, 0, 0);
+(1, 'admin@email.com', 'password', 'admin', 'admin', '2015-04-10 15:34:34', '2015-03-26 00:00:00', 'Male', 4, 'Enabled', 1, 1, 1),
+(2, 'user@email.com', 'password', 'user', 'user', '2015-04-10 14:12:30', '2015-03-30 00:00:00', 'Male', 3, 'Enabled', 1, 1, 1),
+(3, 'wahid@email.com', 'password', 'wahid', 'wahid', '2015-04-10 13:36:10', '2015-04-01 00:00:00', 'Male', 4, 'Enabled', 1, 1, 1),
+(6, 'test@email.com', 'password', 'test', 'test', '2015-04-17 00:00:00', '2015-04-09 00:00:00', 'Female', 4, 'Disabled', 1, 0, 1),
+(7, 'first@email.com', 'password', 'first', 'name', NULL, '2015-04-10 00:00:00', 'Female', 3, 'Enabled', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -113,35 +114,18 @@ CREATE TABLE IF NOT EXISTS `user_attempts` (
   `ATTEMPTS` int(11) NOT NULL,
   `LAST_MODIFIED` datetime NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Contenu de la table `user_attempts`
 --
 
+INSERT INTO `user_attempts` (`ID`, `USERNAME`, `ATTEMPTS`, `LAST_MODIFIED`) VALUES
+(11, 'test@email.com', 3, '2015-04-09 13:18:19'),
+(18, 'wael@email.com', 1, '2015-04-10 12:24:43');
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `user_authorization`
---
-
-CREATE TABLE IF NOT EXISTS `user_authorization` (
-  `USER_ROLE_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `USER_ID` int(10) DEFAULT NULL,
-  `ROLE` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`USER_ROLE_ID`),
-  KEY `USER_ID` (`USER_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `user_authorization`
---
-
-INSERT INTO `user_authorization` (`USER_ROLE_ID`, `USER_ID`, `ROLE`) VALUES
-(1, 1, 'ROLE_ADMIN'),
-(2, 2, 'ROLE_USER'),
-(3, 3, 'ROLE_ADMIN');
 
 --
 -- Contraintes pour les tables exportées
@@ -152,9 +136,3 @@ INSERT INTO `user_authorization` (`USER_ROLE_ID`, `USER_ID`, `ROLE`) VALUES
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`CITY_ID`) REFERENCES `city` (`CITY_ID`);
-
---
--- Contraintes pour la table `user_authorization`
---
-ALTER TABLE `user_authorization`
-  ADD CONSTRAINT `user_authorization_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `users` (`ID`);

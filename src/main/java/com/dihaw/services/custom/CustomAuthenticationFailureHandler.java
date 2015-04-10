@@ -77,7 +77,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         if (user != null && user.getAccountNonLocked() == 0 ) {
         	UserAttempts userAttempts = userAttemptsRepository.findUserAttemptsByUsername(username);
         	
-        	lastModified = userAttempts.getLastModified();
+        	if(userAttempts!= null)
+        		lastModified = userAttempts.getLastModified();
         	
         }
         

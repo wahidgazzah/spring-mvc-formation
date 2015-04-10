@@ -1,5 +1,7 @@
 package com.dihaw.repository;
 
+import java.util.Date;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -67,8 +69,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	int count(@Param("username") String username);
 
     @Modifying
-    @Query("update User u set u.accountNonLocked= :accountNonLocked where u.username= :username")	
-	void updateLocked(@Param("accountNonLocked") boolean accountNonLocked, @Param("username") String username);
+    @Query("update User u set u.lastConnection= :lastConnection where u.username= :username or u.email = :username")	
+	void updateLastConnection(@Param("username") String username, @Param("lastConnection") Date lastConnection);
     
     @Query("from User u where u.username = :username or u.email = :username and u.password= :password")
 	User findByUsernameAndPAssword(@Param("username") String username, @Param("password") String password);

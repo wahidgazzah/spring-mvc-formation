@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<spring:url value="/hello" var="helloUrl" />
+<spring:url value="/" var="helloUrl" />
 <spring:url value="/about" var="aboutUrl" />
 <spring:url value="/persons/list" var="personListUrl"  />
 <spring:url value="/users/list" var="userListUrl"  />

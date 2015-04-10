@@ -17,11 +17,11 @@
 				<h3>Technology used</h3>
 			</div>
 			<ul>
+				<li><strong>Maven</strong></li>
 				<li><strong>Spring MVC</strong></li>
 				<li><strong>Spring Security</strong></li>
-				<li><strong>Maven</strong></li>
-				<li><strong>JPA</strong>: Java Persistence API</li>
 				<li><strong>Spring Data</strong>: used for the list pagination ( size, page, oderBy)</li>
+				<li><strong>JPA</strong>: Java Persistence API</li>
 				<li><strong>Tiles</strong>: in order to create the template (header, body, menu, footer)</li>
 				<li><strong>Sending Email</strong></li>
 				<li><strong>Ehcache</strong>: in order to optimize the database access and the cache of the application</li>
@@ -32,8 +32,8 @@
 				<h3>Data Base</h3>
 			</div>
 			<ul>
-				<li>Create a <strong>userdb</strong> mysql database within <strong>wamp</strong> server application</li>
-				<li>Import the <strong>database-script.sql</strong> in your <strong>userdb</strong> database</li>
+				<li>Create a <strong>dihawdb</strong> mysql database within <strong>wamp</strong> server application</li>
+				<li>Import the <strong>db/database-script.sql</strong> in your <strong>dihawdb</strong> database</li>
 			</ul>
 			</br></br> 
 			<div class="about-title">

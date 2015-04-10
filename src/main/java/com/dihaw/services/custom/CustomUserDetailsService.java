@@ -31,29 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 			com.dihaw.entity.User domainUser = userRepository.findByUsername(username);
-			/*
-			if (domainUser.getAccountNonLocked() != 1) {
-				
-	            logger.debug("--------User account is locked");
-	            throw new CustomGenericException("locked", "User account is locked");
-	        }
-			if (domainUser.getAccountNonExpired() != 1) {
-				
-	            logger.debug("--------User Account Non Expired");
-	            throw new CustomGenericException("accountNonExpired", "User Account Non Expired");
-	        }
-			if (domainUser.getCredentialsNonExpired() != 1) {
-				
-	            logger.debug("--------User credentials Non Expired");
-	            throw new CustomGenericException("credentialsNonExpired", "User credentials Non Expired");
-	        }
-			
-			if (domainUser.getStatus().equals(UserStatus.Disabled)) {
-				
-	            logger.debug("--------User account is not Enabled");
-	            throw new CustomGenericException("enabled", "User account is not Enabled");
-	        }
-			*/
+
 			User user = new User(
 					domainUser.getUsername(), 
 					domainUser.getPassword().toLowerCase(),
@@ -61,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 					(domainUser.getAccountNonExpired() == 1) 		? true : false,		
 					(domainUser.getCredentialsNonExpired() == 1) 	? true : false,		
 				    (domainUser.getAccountNonLocked() == 1) 		? true : false,
-					getAuthorities(domainUser.getRole().getRole()));
+					getAuthorities(domainUser.getUserRole().getRole()));
 			
 			return user;
 	}

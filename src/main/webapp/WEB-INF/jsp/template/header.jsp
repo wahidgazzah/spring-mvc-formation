@@ -10,7 +10,7 @@
 	</div>
 	<div class="user-area">
 		<sec:authorize access="isAnonymous()">
-				<a href="<spring:url value="/login?code=null"></spring:url>" >
+				<a href="<spring:url value="/login"></spring:url>" >
 					<img class="action-login" src='<c:url value="/static/images/action/login.png" />'>
 				</a>
 		</sec:authorize>
