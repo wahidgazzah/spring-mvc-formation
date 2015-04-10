@@ -1,22 +1,27 @@
 # spring-mvc-formation
 Spring MVC Application
 
-Technology used:
-
-	* Spring MVC
+## Technology used:
+	
 	* Maven
-	* JPA: Java Persistence API
+	* Spring MVC
+	* Spring Security
 	* Spring DATA: used for the list pagination ( size, page, oderBy)
+	* JPA: Java Persistence API
 	* Tiles: in order to create the template (header, body, menu, footer)
 	* Ehcache: in order to optimize the database access and the cache of the application
 	* logback: Logback is intended as a successor to the popular log4j project.
 
-Data Base
+## Data Base
 
-    * Create a userdb mysql database within wamp server application
-    * Import the database-script.sql in your userdb database
-
-Import the Git project using STS IDE
+    * Create a dihawdb mysql database within wamp server application
+    * Import the db/database-script.sql in your dihawdb database
+    
+## Spring Security
+    * Use admin & password to logged as ROLE_ADMIN Role
+    * Use user & password to logged as ROLE_USER Role
+    
+## Import the Git project using STS IDE
 
     * Go to the File menu and choose Import.
     * Surf in the Import menu to Git and select Projects from Git.
