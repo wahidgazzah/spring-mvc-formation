@@ -72,18 +72,18 @@
 								</div>
 							</li>
 							
-							<li class="huge">
+							<%--li class="huge">
 								<form:label path="userRole"><strong><spring:message code="userRole" /></strong></form:label> 
 								<spring:bind path="userRole">
 									<select name="userRole">
 										<c:forEach items="${roleList}" var="item">
-											<option value="${item}">
-												<spring:message code="user-role.${item}" />
+											<option value="${item}">${item}
+												spring:message code="user-role.${item}" />
 											</option>
 										</c:forEach>
 									</select>
 								</spring:bind>								
-							</li>
+							</li --%>
 							
 							<li class="huge">
 								<form:label path="city"><strong><spring:message code="city" /></strong></form:label> 

@@ -105,11 +105,16 @@ public class UserServiceImpl implements UserService {
 		ResponseDTO response = new ResponseDTO();
 		
 		if(userToAdd == null){
+			logger.info("-----ResponseStatusType : WRONG_DATA");
 			response.setStatus(ResponseStatusType.WRONG_DATA);
 		}else{
 			
-			UserRole userRole = new UserRole(userToAdd, 2); // 2: ROLE_USER
+			logger.info("-----ResponseStatusType");
+			
+			UserRole userRole = new UserRole(userToAdd, 2); // 2: default role: ROLE_USER
 			roleRepository.save(userRole);
+			
+			logger.info("-----ResponseStatusType : SUCCESS");
 			
 			response.setStatus(ResponseStatusType.SUCCESS);
 		}

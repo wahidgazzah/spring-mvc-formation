@@ -24,7 +24,6 @@ import com.dihaw.dto.ResponseStatusType;
 import com.dihaw.entity.City;
 import com.dihaw.entity.Gender;
 import com.dihaw.entity.User;
-import com.dihaw.entity.Role;
 import com.dihaw.entity.UserStatus;
 import com.dihaw.services.CityService;
 import com.dihaw.services.UserService;
@@ -167,13 +166,12 @@ public class UserController {
 		}
 		
 		else{
+			
 			ResponseDTO response = userService.registerUser(user);
 			
 			model.addAttribute(RESPONSE_STATUS, response.getStatus().value());
 			
 			if(response.getStatus().value().equals(ResponseStatusType.SUCCESS.value())){
-				
-				logger.info("---------- SUCCESS");
 				
 				model.addAttribute(USER_FORM_ATTRIBUTE, new User());
 				
